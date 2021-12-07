@@ -200,14 +200,33 @@ textarea {
   animation-name: animateArrow;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
-@keyframes animateArrow {
+/* @keyframes animateArrow {
   0% {
     transform: translateX(0px);
   }
   50% {
     transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+} */
+
+@keyframes animateArrow {
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(4px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-4px);
   }
   100% {
     transform: translateX(0px);
@@ -236,4 +255,56 @@ textarea {
 
 .ForumTable {
   width: 500px !important;
+}
+
+.reply-top {
+  background-color: #a20101;
+  color: white;
+  padding: 10px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+Card {
+  width: 900px !important;
+  padding-bottom: 0 !important;
+}
+
+.reply-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.reply-bottom {
+  display: flex;
+}
+
+.reply-bottom-left {
+  width: 235px;
+  background-color: rgb(235, 235, 235);
+  text-align: left;
+  padding: 10px;
+}
+
+.reply-bottom-right {
+  width: 700px;
+  text-align: left;
+  padding: 10px;
+}
+
+.reply-new-top {
+}
+
+.reply-new-bottom {
+  padding: 10px;
 }
