@@ -40,6 +40,7 @@ const Profile = (props) => {
             subject: "",
             message: ""
         })
+        closeOpenModal();
     }
 
     const closeOpenModal = () => {

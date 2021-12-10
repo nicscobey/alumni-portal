@@ -383,8 +383,8 @@ export default function ForumTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: 'calc(100% - 40px)', margin: "20px", }}>
+      <Paper sx={{ width: '100%', mb: 2, border: "none", boxShadow: "none"  }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table

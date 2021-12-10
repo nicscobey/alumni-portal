@@ -13,6 +13,65 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FormatIndentIncreaseIcon from '@mui/icons-material/FormatIndentIncrease';
 import FormatIndentDecreaseIcon from '@mui/icons-material/FormatIndentDecrease';
+import { useState } from 'react';
+import { convertToRaw } from 'draft-js' 
+
+
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import MUIRichTextEditor from 'mui-rte'
+import GAButton from '../components/Button'
+
+
+
+const myTheme = createTheme({
+    // Set up your custom MUI theme here
+    palette: {
+        primary: {
+            main: "#000000"
+        }
+    }
+})
+
+Object.assign(myTheme, {
+    overrides: {
+        MUIRichTextEditor: {
+            root: {
+                // backgroundColor: "#ebebeb",
+            },
+            editor: {
+                // borderBottom: "1px solid gray", 
+                textAlign: "left",
+                // color: "red",
+                // width: "100%",
+                // margin: "10px",
+                // backgroundColor: "pink"
+            },
+            container: {
+                // backgroundColor: "green"
+            },
+            editorContainer: {
+                // backgroundColor: "yellow",
+                margin: "10px",
+            },
+            toolbar: {
+                backgroundColor: "rgb(235, 235, 235)",
+                color: "#white !important",
+                textAlign: "center"
+            },
+            placeHolder: {
+                // backgroundColor: "#ebebeb",
+                // paddingLeft: 20,
+                // width: "inherit",
+                // font: "inherit"
+            },
+            // anchorLink: {
+            //     color: "#333333",
+            //     textDecoration: "underline",
+            //     backgroundColor: "blue"
+            // }
+        }
+    }
+})
 
 // export default function BasicButtonGroup() {
 //   return (
@@ -23,11 +82,36 @@ import FormatIndentDecreaseIcon from '@mui/icons-material/FormatIndentDecrease';
 //     </ButtonGroup>
 //   );
 // }
-export default function ForumNewReply() {
+export default function ForumNewReply(props) {
+
+    // const [textEditor, setTextEditor] = useState("")
+
+    // const onChange = (event) => {
+    //     // console.log(event.target.value)
+    //     // setTextEditor(event.target.value)
+    //     console.log('hi')
+    // }
+
+    // const [value, setValue] = useState('')
+
+    // const handleChange = event => {
+    //     const plainText = event.getCurrentContent().getPlainText() // for plain text
+    //     // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+    //     // setValue(JSON.stringify(rteContent)) // store your rteContent to state
+    //     // console.log(rteContent)
+    //     console.log(plainText)
+    //     setValue(plainText)
+    // }
+
 return (
     <Card sx={{ width: 900, margin: "10px" }}>
         {/* <CardContent sx={{ padding: 0, margin: 0 }}> */}
             <div className="reply-new-top">
+                <ThemeProvider theme={myTheme}>
+                    <MUIRichTextEditor value={props.value} onChange={props.handleChange} inlineToolbar={true} label="Click here to start typing..." controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote"]} />
+                </ThemeProvider>
+
+                {/* controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear"]} */}
                 {/* <ButtonGroup variant="outlined" aria-label="outlined primary button group">
                     <Button size="small"><FormatBoldIcon /></Button>
                     <Button size="small"><FormatItalicIcon /></Button>
@@ -41,7 +125,7 @@ return (
                 <FormatItalicIcon />
                 <FormatUnderlinedIcon /> */}
             </div>
-            <div className="reply-new-bottom">
+            {/* <div className="reply-new-bottom"> */}
                 {/* <div className="reply-bottom-left">
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     <b>Author</b>
@@ -54,11 +138,11 @@ return (
                     </Typography>
                 </div> */}
                 {/* <div className="reply-new-bottom"> */}
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </Typography>
+                    </Typography> */}
                 {/* </div> */}
-            </div>
+            {/* </div> */}
     </Card>
 );
 }

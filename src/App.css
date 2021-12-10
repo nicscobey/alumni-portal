@@ -261,6 +261,9 @@ textarea {
   background-color: #a20101;
   color: white;
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
 }
 
 .flex-center {
@@ -279,11 +282,11 @@ Card {
   padding-bottom: 0 !important;
 }
 
-.reply-top {
+/* .reply-top {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-}
+} */
 
 .reply-bottom {
   display: flex;
@@ -303,8 +306,32 @@ Card {
 }
 
 .reply-new-top {
+  /* height: 350px; */
+  min-height: 75px;
+  text-align: left;
 }
 
 .reply-new-bottom {
   padding: 10px;
+}
+/* 
+.MUIRichTextEditor-editorContainer-5 {
+  margin-right: 10px;
+  margin-left: 10px !important;
+} */
+/* 
+.MuiButtonBase-root {
+  color: white !important;
+} */
+
+code-block {
+  color: blue;
+}
+
+code {
+  color: red;
+}
+
+pre {
+  color: green;
 }
