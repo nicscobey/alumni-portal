@@ -7,7 +7,7 @@ import Card from './components/Card';
 import Home from './pages/Home'
 import Login from './pages/Login';
 import AppTracker from './pages/AppTracker'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, useHistory} from 'react-router-dom'
 import JobBoard from './pages/JobBoard';
 import AlumniDatabase from './pages/AlumniDatabase';
 import Forum from './pages/Forum';
@@ -26,15 +26,20 @@ function App() {
 // message: "String"
 // timestamp: ????
 
+  const history = useHistory()
   const {state, dispatch} = useAppState()
 
   useState(() => {
     const auth = JSON.parse(window.localStorage.getItem("auth"))
 
     if (auth) {
-      dispatch({type: auth})
+      console.log(auth)
+      dispatch({type: "auth", payload: auth})
+      // window.location = window.location.host + "/my/home"
+      history.push("/my/home")
     } else {
-      window.location = window.location.host + "/"
+      // window.location = window.location.host + "/auth/login"
+      history.push("/auth/login")
     }
     }, [])
   
@@ -48,7 +53,7 @@ function App() {
           <CreateAccount {...rp} />
         )} /> */}
         <Route path="/auth/:form">
-          <Auth hi={"hi"}/>
+          <Auth />
         </Route>
         <Route path="/my/home">
           <Home />

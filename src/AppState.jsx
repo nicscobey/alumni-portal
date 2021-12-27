@@ -64,7 +64,10 @@ const reducer = (state, action) => {
         case "auth":
             newState = {...state, ...action.payload}
             return newState
-            break
+        case "logout": 
+            newState = {...state, token: null, email: null}
+            window.localStorage.removeItem("auth")
+            return newState
         default:
             return state
     }

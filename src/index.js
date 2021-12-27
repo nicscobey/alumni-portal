@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import { ThemeProvider } from '@mui/system';
 import ColorTheme from './components/Theme'
 import {Provider} from 'react-redux'
@@ -16,7 +16,8 @@ ReactDOM.render(
       <AppState>
       {/* <Provider store={store}> */}
         <ThemeProvider theme={ColorTheme}>
-          <App />
+          {/* <App /> */}
+        <Route path="/" component={App} />
         </ThemeProvider>
       {/* </Provider> */}
       </AppState>
