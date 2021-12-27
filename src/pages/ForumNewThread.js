@@ -9,13 +9,16 @@ import { convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html';
 import DOMPurify from "dompurify";
 import { Stack } from "@mui/material";
+import ForumCloseModal from "../components/ForumCloseModal";
 
-// NOW I NEED TO MODIFY THE BUTTONS THAT SHOW UP SO IT'S ONLY THE BUTTONS THAT WE NEED
 
 const JobBoard = (props) => {
 
     const [value, setValue] = useState('')
     const [showNewReply, setShowNewReply] = useState(false)
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleChange = event => {
         const plainText = event.getCurrentContent().getPlainText() // for plain text
@@ -36,19 +39,19 @@ const JobBoard = (props) => {
         return mySafeHTML
     }
 
-    const toggleNewReply = () => {
-        setShowNewReply(!showNewReply)
-        console.log(showNewReply)
-    }
+    // const toggleNewReply = () => {
+    //     setShowNewReply(!showNewReply)
+    //     console.log(showNewReply)
+    // }
 
-    const NewReply = () => {
+    const NewThread = () => {
         return (
             <div className="flex-center-column">
-                <ForumNewReply toggleNewReply={toggleNewReply} handleChange={handleChange}/>
+                <ForumNewReply  handleChange={handleChange}/>
                 <Stack direction="row" spacing={2}>
-                    <GAButton>Reply</GAButton>
+                    <GAButton>Post</GAButton>
 
-                    <GAButton onClick={toggleNewReply}>Cancel</GAButton>
+                    <GAButton onClick={handleOpen}>Cancel</GAButton>
                 </Stack>
                 
                 <div dangerouslySetInnerHTML={{ __html: convertText(value) }}/>
@@ -61,17 +64,19 @@ const JobBoard = (props) => {
     return (
         <div className="">
             <DesktopNav />
-            <h2>Thread: {props._id}</h2>
-            {showNewReply ? null : <GAButton onClick={toggleNewReply}>Reply to this Forum</GAButton>}
-            <div className="flex-center-column">
+            <h2>Thread: is it possible to get the idea already? probably not, since it's not saved. {props._id}</h2>
+            <h2>New Thread</h2>
+            <h2>Set a title</h2>
+            {/* <div className="flex-center-column">
                 <ForumReply />
                 <ForumReply />
-            </div>
-            {showNewReply ? NewReply() : null}
+            </div> */}
+            <NewThread/>
             {/* <div className="flex-center-column">
                 <ForumNewReply handleChange={handleChange}/>
                 <div dangerouslySetInnerHTML={{ __html: convertText(value) }}/>
             </div> */}
+            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose}/> : null }
         </div>
     )
 }

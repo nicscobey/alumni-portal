@@ -199,7 +199,8 @@ function EnhancedTableHead(props) {
           <StyledTableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            // padding={headCell.disablePadding ? 'none' : 'normal'}
+            padding="16px"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <StyledSortLabel
@@ -429,13 +430,13 @@ export default function ForumTable() {
                         />
                       </TableCell> */}
                       <TableCell
-                        component="th"
+                        // component="th"
                         id={labelId}
-                        scope="row"
-                        padding="none"
+                        // scope="row"
+                        padding="16px"
                       >
-                        <p><b><Link to={`/my/forum/${row._id}`}>{row.topic}</Link></b></p>
-                        <p>Author: {row.author}, {convertToDate(row.datePosted)}, {convertToDate(Date.now())}
+                        <p className="no-margin"><b><Link to={`/my/forum/${row._id}`}>{row.topic}</Link></b></p>
+                        <p className="no-margin">Author: {row.author}, {convertToDate(row.datePosted)}, {convertToDate(Date.now())}
                         </p>
                       </TableCell>
                       <TableCell align="right">
@@ -469,10 +470,10 @@ export default function ForumTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
   );
 }

@@ -11,9 +11,9 @@ import BasicMenu from './MenuItem';
 export default function DesktopNav() {
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1}}>
       <AppBar position="static">
-        <Toolbar className="toolbar">
+        <Toolbar className="toolbar" sx={{ flexGrow: 1, backgroundColor: "black"}}>
             <div className="toolbar-left">
               {/* <IconButton
                 size="large"
@@ -46,7 +46,8 @@ export default function DesktopNav() {
               ]}/>
             </div>
             <div>
-              <Button color="inherit">Login</Button>
+              <Link to="/auth/signup"><Button color="inherit">Sign Up</Button></Link>
+              <Link to="/auth/login"><Button color="inherit">Log In</Button></Link>
             </div>
         </Toolbar>
       </AppBar>

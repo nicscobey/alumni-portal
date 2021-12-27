@@ -13,6 +13,10 @@ import AlumniDatabase from './pages/AlumniDatabase';
 import Forum from './pages/Forum';
 import CreateAccount from './pages/CreateAccount';
 import ForumPost from './pages/ForumPost'
+import ForumNewThread from './pages/ForumNewThread'
+import Auth from './pages/Auth'
+import {useAppState} from './AppState.jsx'
+import { useState } from 'react';
 
 function App() {
 
@@ -22,13 +26,29 @@ function App() {
 // message: "String"
 // timestamp: ????
 
+  const {state, dispatch} = useAppState()
 
+  useState(() => {
+    const auth = JSON.parse(window.localStorage.getItem("auth"))
 
+    if (auth) {
+      dispatch({type: auth})
+    } else {
+      window.location = window.location.host + "/"
+    }
+    }, [])
+  
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <Login />
+        </Route>
+        <Route path="/create-account" render={(rp) => (
+          <CreateAccount {...rp} />
+        )} /> */}
+        <Route path="/auth/:form">
+          <Auth hi={"hi"}/>
         </Route>
         <Route path="/my/home">
           <Home />
@@ -49,12 +69,12 @@ function App() {
         <Route exact path="/my/forum">
           <Forum />
         </Route>
+        <Route exact path="/my/forum/new">
+          <ForumNewThread />
+        </Route>
         <Route exact path="/my/forum/:id">
           <ForumPost />
         </Route>
-        <Route path="/create-account" render={(rp) => (
-          <CreateAccount {...rp} />
-        )} />
           {/* <Route path="/create-account" >
             <CreateAccount />
           </Route> */}

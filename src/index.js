@@ -4,12 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom'
-
+import { ThemeProvider } from '@mui/system';
+import ColorTheme from './components/Theme'
+import {Provider} from 'react-redux'
+import store from './app/store'
+import {AppState} from './AppState'
 
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <AppState>
+      {/* <Provider store={store}> */}
+        <ThemeProvider theme={ColorTheme}>
+          <App />
+        </ThemeProvider>
+      {/* </Provider> */}
+      </AppState>
     </React.StrictMode>
   </Router>
   ,

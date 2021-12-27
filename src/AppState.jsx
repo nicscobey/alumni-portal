@@ -1,0 +1,89 @@
+import React, {useReducer, useContext} from 'react'
+
+////// INITIAL STATE
+
+const initialState = {
+    url: "http://alumni-portal-back-end.herokuapp.com",
+    token: null,
+    email: null
+}
+
+///// REDUCER
+// action = {type: "", payload: ---}
+// const reducer = (state, action) => {
+
+//     // console.log(state)
+//     // console.log(action)
+
+//     switch (action.type){
+//         case "signup": 
+//             fetch(state.url + "/users/", {
+//                 method: "post",
+//                 headers: {
+//                     "Content-Type": "application/json"
+//                 },
+//                 body: JSON.stringify(action.payload)
+//             })
+//             .then(response => response.json())
+//             .then(user => {
+//                 console.log('no')
+//                 return {
+//                     ...state,
+//                     token: user.token,
+//                     email: user.email
+//                 }
+//             })
+//         break
+//         case "login": 
+//         fetch(state.url + "/login/", {
+//             method: "post",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(action.payload)
+//         })
+//         .then(response => response.json())
+//         .then(user => {
+//             console.log('hey')
+//             return {
+//                 ...state,
+//                 token: user.token,
+//                 email: user.email
+//             }
+//         })
+//         break
+//         default: 
+//             console.log('hi')
+//             return state 
+//     }
+// }
+
+const reducer = (state, action) => {
+    let newState;
+    switch (action.type) {
+        case "auth":
+            newState = {...state, ...action.payload}
+            return newState
+            break
+        default:
+            return state
+    }
+}
+
+////// AppContext
+
+const AppContext = React.createContext(null)
+
+export const AppState = (props) => {
+    const [state, dispatch] = useReducer(reducer, initialState) 
+
+    return <AppContext.Provider value={{state, dispatch}}>
+        {props.children}
+    </AppContext.Provider>
+}
+
+////// useAppState Hook
+
+export const useAppState = () => {
+    return React.useContext(AppContext)
+}
