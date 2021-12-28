@@ -6,6 +6,7 @@ import AlumnusCard from "../components/AlumnusCard";
 import AlumniPagination from "../components/AlumniPagination";
 import DesktopNav from "../components/DesktopNav";
 import { TextField} from "@mui/material";
+import { useAppState } from "../AppState";
 
 
 const AlumniDatabase = () => {
@@ -17,31 +18,71 @@ const AlumniDatabase = () => {
         location: ""
     })
 
-    const [results, setResults] = useState(Alumni);
+    // const [results, setResults] = useState(Alumni);
+    const [results, setResults] = useState(null)
     const [page, setPage] = useState(1)
 
 
-    const handleChange = (event) => {
-        const newSearch = {...search, [event.target.name]: event.target.value};
-        const newResults = Alumni.filter(alumnus => {
+    const {state, dispatch} = useAppState()
+
+
+    const getAlumni = async (newSearch) => {
+        const response = await fetch(state.url + "/users")
+        console.log(response)
+        const data = await response.json()
+        console.log(data)
+        
+
+        return data.filter(alumnus => {
 
             
             let takenCourse = false;
-            alumnus.gaProgram.forEach(course => {
+            alumnus.gaprograms.forEach(course => {
                 if (course.includes(newSearch.gaProgram)) {
                     takenCourse = true;
                 }
             })
+            // console.log(alumnus)
+            // console.log(alumnus.firstname.toLowerCase())
+            // console.log(newSearch.firstName.toLowerCase())
+            // console.log(alumnus.firstname.toLowerCase().includes(newSearch.firstName.toLowerCase()))
 
             return (
-                alumnus.firstName.toLowerCase().includes(newSearch.firstName.toLowerCase()) &&
-                alumnus.lastName.toLowerCase().includes(newSearch.lastName.toLowerCase()) &&
-                alumnus.jobTitle.toLowerCase().includes(newSearch.jobTitle.toLowerCase()) &&
-                alumnus.location.toLowerCase().includes(newSearch.location.toLowerCase())
+                alumnus.firstname.toLowerCase().includes(newSearch.firstName.toLowerCase()) &&
+                alumnus.lastname.toLowerCase().includes(newSearch.lastName.toLowerCase()) && 
+                takenCourse
+                // alumnus.jobTitle?.toLowerCase().includes(newSearch.jobTitle.toLowerCase()) &&
+                // alumnus.location?.toLowerCase().includes(newSearch.location.toLowerCase())
             )
         })
-        setResults(newResults);
-        setSearch(newSearch);
+    }
+
+    const handleChange = async (event) => {
+        const newSearch = {...search, [event.target.name]: event.target.value};
+        // const newResults = Alumni.filter(alumnus => {
+
+            
+        //     let takenCourse = false;
+        //     alumnus.gaProgram.forEach(course => {
+        //         if (course.includes(newSearch.gaProgram)) {
+        //             takenCourse = true;
+        //         }
+        //     })
+
+        //     return (
+        //         alumnus.firstName.toLowerCase().includes(newSearch.firstName.toLowerCase()) &&
+        //         alumnus.lastName.toLowerCase().includes(newSearch.lastName.toLowerCase()) &&
+        //         alumnus.jobTitle.toLowerCase().includes(newSearch.jobTitle.toLowerCase()) &&
+        //         alumnus.location.toLowerCase().includes(newSearch.location.toLowerCase())
+        //     )
+        // })
+        // setResults(newResults);
+        // setSearch(newSearch);
+        const alumni = await getAlumni(newSearch)
+        console.log(alumni)
+        console.log(search)
+        await setResults(alumni)
+        setSearch(newSearch)
     }
 
     // const handleSubmit = (event) => {
@@ -54,15 +95,21 @@ const AlumniDatabase = () => {
     }
 
     const loadedResults = () => {
-        return (
-            results.map((result) => (
-                <div>
-                    {/* <h1>{result.firstName} {result.lastName}</h1> */}
-                    <AlumnusCard path={result._id} bgcolor="#F6F6F6" person={result}/>
-                </div>
+        console.log(results)
+        if (results.length>0){
+            return (
+                results.map((result) => (
+                    <div>
+                        {/* <h1>{result.firstName} {result.lastName}</h1> */}
+                        <AlumnusCard path={result.id} bgcolor="#F6F6F6" person={result}/>
+                    </div>
 
-            ))
-        )
+                ))
+            )
+        }
+        else {
+            return <h3>No results found!</h3>
+        }
     }
 
     return (
@@ -70,10 +117,10 @@ const AlumniDatabase = () => {
             <DesktopNav />
             <h2>Alumni Database</h2>
             <form>
-                <TextField type="text" name="firstName" value={search.firstName} onChange={handleChange} placeholder="First Name" />
-                <TextField type="text" name="lastName" value={search.lastName} onChange={handleChange} placeholder="Last Name" />
+                <TextField label="First Name" type="text" name="firstName" value={search.firstName} onChange={handleChange}  />
+                <TextField label="Last Name" type="text" name="lastName" value={search.lastName} onChange={handleChange} />
                 {/* CONSIDER ADDING THE MUI SELECT HERE INSTEAD */}
-                <select multiple>
+                <select name="gaProgram" onChange={handleChange}>
                     <option value="">Select a GA Program</option>
                     <option value="Data Analytics">Data Analytics</option>
                     <option value="Data Science">Data Science</option>
@@ -82,15 +129,15 @@ const AlumniDatabase = () => {
                     <option value="Software Engineering">Software Engineering</option>
                     <option value="User Experience Design">User Experience Design</option>
                 </select>
-                <TextField type="text" name="jobTitle" value={search.jobTitle} onChange={handleChange} placeholder="Job Title"/>
-                <TextField type="text" name="lastname" value={search.location} onChange={handleChange} placeholder="Location" />
+                {/* <TextField type="text" name="jobTitle" value={search.jobTitle} onChange={handleChange} placeholder="Job Title"/>
+                <TextField type="text" name="lastname" value={search.location} onChange={handleChange} placeholder="Location" /> */}
                 {/* <input type="submit" className="button" value="Search" /> */}
             </form>
             {/* <AlumniSearchResults /> */}
             <div className="alumni-search-results">
                 {results ? loadedResults() : loadingResults() }
             </div>
-            <AlumniPagination results={results} setPage={setPage}/>
+            {/* <AlumniPagination results={results} setPage={setPage}/> */}
         </div>
     )
 }

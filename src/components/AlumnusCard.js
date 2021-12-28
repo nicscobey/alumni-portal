@@ -26,7 +26,7 @@ const AlumnusCard = (props) => {
         <StyledCard bgcolor={props.bgcolor}>
             <Link to={`alumni/${props.path}`} person={person}>
                 <CardLink>
-                    <h1>{person.firstName} {person.lastName}</h1>
+                    <h1>{person.firstname} {person.lastname}</h1>
                     <h4>{person.jobTitle}</h4>
                 </CardLink>
             </Link>
