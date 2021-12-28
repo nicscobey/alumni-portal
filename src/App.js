@@ -35,26 +35,25 @@ function App() {
     if (auth) {
       console.log(auth)
       dispatch({type: "auth", payload: auth})
-      // window.location = window.location.host + "/my/home"
       history.push("/my/home")
     } else {
-      // window.location = window.location.host + "/auth/login"
-      history.push("/auth/login")
+      // history.push("/auth/login")
+      history.push("/")
     }
     }, [])
   
   return (
     <div className="App">
       <Switch>
-        {/* <Route exact path="/">
+        <Route exact path="/">
           <Login />
         </Route>
-        <Route path="/create-account" render={(rp) => (
+        <Route path="/signup" render={(rp) => (
           <CreateAccount {...rp} />
-        )} /> */}
-        <Route path="/auth/:form">
+        )} />
+        {/* <Route path="/auth/:form">
           <Auth />
-        </Route>
+        </Route> */}
         <Route path="/my/home">
           <Home />
         </Route>

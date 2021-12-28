@@ -54,11 +54,11 @@ export default function DesktopNav() {
 
             </div>
             <div>
-              {state.token ? null : <div><Link to="/auth/signup"><Button color="inherit">Sign Up</Button></Link>
-              <Link to="/auth/login"><Button color="inherit">Log In</Button></Link></div>}
+              {state.token ? null : <div><Link to="/signup"><Button color="inherit">Sign Up</Button></Link>
+              <Link to="/"><Button color="inherit">Log In</Button></Link></div>}
               {state.token ? <Button onClick={()=> {
                 dispatch({type: "logout"})
-                history.push("/auth/login")
+                history.push("/")
               }}>Log Out</Button> : null}
             </div>
         </Toolbar>
