@@ -11,6 +11,8 @@ import { useAppState } from "../AppState";
 const Profile = (props) => {
 
     const {state, dispatch} = useAppState()
+    const {token, url } = state;
+
     const targetId = parseInt(props.match.params.id);
     // const targetId = parseInt(useParams().id)
 
@@ -18,7 +20,12 @@ const Profile = (props) => {
 
     const getProfile = async () => {
         // const newProfile = Alumni.find(alumnus => alumnus.id===targetId);
-        const alumni = await (await fetch(state.url + "/users")).json()
+        const alumni = await (await fetch(state.url + "/users", {
+            method: "get",
+            headers: {
+                Authorization: "bearer " + token,
+            }
+        })).json()
         const newProfile = await alumni.find(alumnus => alumnus.id === targetId)
         console.log(newProfile);
         setProfile(newProfile)
@@ -70,7 +77,7 @@ const Profile = (props) => {
                     </div>
                 </div>
                 <GAButton className="message-button" onClick={closeOpenModal}>Message</GAButton>
-                {profile.bio ? <div className="profile-blurb">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl nisi scelerisque eu ultrices vitae auctor eu. Aenean euismod elementum nisi quis eleifend quam adipiscing. Vulputate mi sit amet mauris commodo quis imperdiet. Mattis molestie a iaculis at erat pellentesque adipiscing. Tristique et egestas quis ipsum suspendisse. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Eget est lorem ipsum dolor sit amet consectetur. Habitant morbi tristique senectus et netus. Leo a diam sollicitudin tempor id eu nisl nunc.</div> : null}
+                {profile.bio ? <div className="profile-blurb">{profile.bio}</div> : null}
                 
                 <div className="gray-background">
                     <GACard title="Resume" lastUpdated="DATE" />

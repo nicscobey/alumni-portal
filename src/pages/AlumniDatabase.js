@@ -24,10 +24,16 @@ const AlumniDatabase = () => {
 
 
     const {state, dispatch} = useAppState()
+    const {token, url } = state;
 
 
     const getAlumni = async (newSearch) => {
-        const response = await fetch(state.url + "/users")
+        const response = await fetch(state.url + "/users", {
+            method: "get",
+            headers: {
+                Authorization: "bearer " + token,
+            }
+        })
         console.log(response)
         const data = await response.json()
         console.log(data)

@@ -23,8 +23,6 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import {useAppState} from '../AppState'
-import {useState, useEffect} from 'react'
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -77,10 +75,6 @@ function createData(topic, replies, views, author, lastReplier, datePosted, date
   };
 }
 
-// const rows = [
-//   createData(forum.title, )
-// ]
-
 const rows = [
   createData('Cupcake', 305, 4.3, "Amy", "Zelda", 1638677728657, 1638699928657, 1),
   createData('Donut', 452, 4.9, "Bob", "Yolanda", 1638670750657, 1638688728657, 2),
@@ -96,8 +90,6 @@ const rows = [
   createData('Nougat', 360, 37.0, "Monica", "Ollie", 1638670428657, 1638679728657, 12),
   createData('Oreo', 437, 4.0, "Natalia", "Nathans", 1638670768657, 1638677928657, 13),
 ];
-
-
 
 // const newRows = [
 //     createData('Cupcake', 305, 3.7, 67),
@@ -156,18 +148,18 @@ const headCells = [
     disablePadding: true,
     label: 'Topic',
   },
-  // {
-  //   id: 'replies',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: 'Replies',
-  // },
-  // {
-  //   id: 'views',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: 'Views',
-  // },
+  {
+    id: 'replies',
+    numeric: true,
+    disablePadding: false,
+    label: 'Replies',
+  },
+  {
+    id: 'views',
+    numeric: true,
+    disablePadding: false,
+    label: 'Views',
+  },
   {
     id: 'dateLastReply',
     numeric: true,
@@ -296,9 +288,6 @@ EnhancedTableToolbar.propTypes = {
 
 export default function ForumTable() {
   const [order, setOrder] = React.useState('asc');
-  const {state, dispatch} = useAppState()
-  const {token, url } = state;
-
 
   //THE DEFAULT SHOULD BE LAST REPLY OR FIRST POSTED DATE
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -309,33 +298,9 @@ export default function ForumTable() {
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
-    console.log(isAsc)
-    console.log(orderBy)
-    console.log(property)
-    console.log(order)
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-
-  let [data, setData] = useState(false);
-
-  const retrieveData = async () => {
-    console.log(url)
-    console.log(token)
-    const response = await fetch(url + "/forums", {
-      method: "get",
-      headers: {
-        Authorization: "bearer " + token,
-      }
-    })
-    console.log(response)
-    const data = await response.json()
-    console.log(data)
-    setData(data)
-  }
-
-  useEffect(() => {retrieveData()}, [])
 
 //   const handleSelectAllClick = (event) => {
 //     if (event.target.checked) {
@@ -418,10 +383,8 @@ export default function ForumTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-
-    const returnTable = () => {
-      return (
-<Box sx={{ width: 'calc(100% - 40px)', margin: "20px", }}>
+  return (
+    <Box sx={{ width: 'calc(100% - 40px)', margin: "20px", }}>
       <Paper sx={{ width: '100%', mb: 2, border: "none", boxShadow: "none"  }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -441,20 +404,20 @@ export default function ForumTable() {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(data, getComparator(order, orderBy))
+              {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((forum, index) => {
-                  const isItemSelected = isSelected(forum.title);
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <StyledTableRow
                       hover
-                      onClick={(event) => handleClick(event, forum.title)}
+                      onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={forum.title}
+                      key={row.name}
                       selected={isItemSelected}
                     >
                       {/* <TableCell padding="checkbox">
@@ -472,17 +435,15 @@ export default function ForumTable() {
                         // scope="row"
                         padding="16px"
                       >
-                        <p className="no-margin"><b><Link to={`/my/forum/${forum.id}`}>{forum.title}</Link></b></p>
-                        {/* <p className="no-margin">Author: {forum.user_id}, {convertToDate(row.datePosted)}, {convertToDate(Date.now())}
-                        </p> */}
-                        <p className="no-margin">Author: {forum.user_id}, {convertToDate(forum.created_at)}</p>
-                        
+                        <p className="no-margin"><b><Link to={`/my/forum/${row._id}`}>{row.topic}</Link></b></p>
+                        <p className="no-margin">Author: {row.author}, {convertToDate(row.datePosted)}, {convertToDate(Date.now())}
+                        </p>
                       </TableCell>
-                      {/* <TableCell align="right">
+                      <TableCell align="right">
                           {row.replies}
                         </TableCell>
-                      <TableCell align="right">{row.views}</TableCell> */}
-                      <TableCell align="right">Last updated: {convertToDate(forum.updated_at)}</TableCell>
+                      <TableCell align="right">{row.views}</TableCell>
+                      <TableCell align="right">{row.lastReplier}, {convertToDate(row.dateLastReply)}</TableCell>
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </StyledTableRow>
                   );
@@ -499,7 +460,7 @@ export default function ForumTable() {
             </TableBody>
           </Table>
         </TableContainer>
-        {/* <TablePagination
+        <TablePagination
           rowsPerPageOptions={[5, 10, 15]}
           component="div"
           count={rows.length}
@@ -507,19 +468,12 @@ export default function ForumTable() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
+        />
       </Paper>
       {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       /> */}
     </Box>
-      )
-    }
-  return (
-    <>
-              {/* <button onClick={retrieveData}>Test</button> */}
-      {data ? returnTable() : null}
-    </>
   );
 }
