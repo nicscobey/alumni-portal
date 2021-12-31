@@ -76,7 +76,7 @@ function App() {
         <Route exact path="/my/forum/new">
           <ForumNewThread />
         </Route>
-        <Route exact path="/my/forum/:id">
+        <Route path="/my/forum/:id">
           <ForumPost />
         </Route>
           {/* <Route path="/create-account" >

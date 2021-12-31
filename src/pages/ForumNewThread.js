@@ -31,6 +31,11 @@ const JobBoard = (props) => {
         user_id: state.user_id,  
     })
 
+    const [newForumreply, setNewForumreply] = useState({
+        message: "",
+        user_id: state.user_id, 
+        forum_id: null
+    })
 
     const handleChange = event => {
         const plainText = event.getCurrentContent().getPlainText() // for plain text
@@ -43,6 +48,8 @@ const JobBoard = (props) => {
         setValue(draftToHtml(rteContent))
         // setValue(rteContent)
         // setValue(plainText)
+        setNewForumreply({...newForumreply, message: draftToHtml(rteContent)})
+        console.log(newForumreply)
     }
 
     const convertText = (str) => {
@@ -56,26 +63,117 @@ const JobBoard = (props) => {
         setNewForum(newState)
     }
 
+    // const fetchData = async () => {
+    //     console.log(newForum)
+    //         console.log('submit form')
+    //         console.log(state)
+    //         console.log(url) 
+    //         const response = await fetch(url + "/forums", {
+    //             method: "post",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: "bearer " + token,
+    //             },
+    //             body: JSON.stringify(newForum)
+    //         }).then((response) => response.json())
+    //         .then((forum) => {
+    //             return forum.id
+    //         })
+
+    //         console.log(response) 
+    //         // console.log(response.json())
+    //         // return response.id
+    // }
+
+    const saveForumreply = async (forum) => {
+        console.log(newForumreply)
+
+        console.log(url)
+        console.log(url + "/replies")
+        console.log(token)
+
+        //Create first message as the first forumreply
+        await fetch(url + "/replies", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "bearer " + token,
+            },
+            // body: JSON.stringify(newForumreply)
+            body: JSON.stringify({message: newForumreply.message, forum_id: forum.id, user_id: 4})
+        })
+
+        console.log({message: newForumreply.message, forum_id: forum.id, user_id: 4})
+        console.log(state)
+        console.log(newForumreply)
+    }
+
     const handleSubmit = async () => {
         if (newForum.title !== "") {
+            // console.log(newForum)
+            // console.log('submit form')
+            // console.log(state)
+            // console.log(url) 
+            // const response = await fetch(url + "/forums", {
+            //     method: "post",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: "bearer " + token,
+            //     },
+            //     body: JSON.stringify(newForum)
+            // })
+
+            // console.log(response)
+            // console.log(response.json())
+
+
             console.log(newForum)
             console.log('submit form')
             console.log(state)
             console.log(url) 
-            const response = await fetch(url + "/forums", {
+
+            //Create new forum
+            await fetch(url + "/forums", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: "bearer " + token,
                 },
                 body: JSON.stringify(newForum)
+            }).then((response) => response.json())
+            .then((forum) => {
+                console.log(forum.id)
+                setNewForumreply({...newForumreply, forum_id: forum.id})
+                // return forum.id
+                saveForumreply(forum)
+                history.push(`/my/forum/${forum.id}`)
             })
 
-            console.log(response)
-            console.log(response.json())
+            // postForum()
+            // console.log(postForum) 
+            // console.log(newForumreply)
 
+            const replyTest = {
+                message: '<p>rock</p>\n',
+                user_id: 2,
+                forum_id: 1
+            }
+            // //Create first message as the first forumreply
+            // await fetch(url + "/replies", {
+            //     method: "post",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: "bearer " + token,
+            //     },
+            //     // body: JSON.stringify(newForumreply)
+            //     body: JSON.stringify({...newForumreply, forum_id: forum.id})
+            //     // body: JSON.stringify(replyTest)
+            // })
 
-            // history.push("/my/forum")
+            console.log(newForumreply)
+
+            // let myData = await fetchData()
+            // console.log(myData)
         }
         else {
             alert("Please choose a title")
