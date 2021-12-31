@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import useState from 'react'
 import GAButton from './Button';
 import { Stack } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -24,9 +25,15 @@ export default function ForumCloseModal(props) {
 //   const handleOpen = () => setOpen(true);
 //   const handleClose = () => setOpen(false);
 
+  const history = useHistory()
+
+  const redirect = () => {
+    history.push("/my/forum")
+  }
+
   return (
     <div>
-      <Button onClick={props.handleOpen}>Open modal</Button>
+      {/* <Button onClick={props.handleOpen}>Open modal</Button> */}
       <Modal
         open={props.open}
         onClose={props.handleClose}
@@ -40,9 +47,10 @@ export default function ForumCloseModal(props) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Are you sure you wish to cancel this post? This action cannot be undone.
           </Typography>
+          <br />
           <Stack direction="row" spacing={2}>
           <GAButton onClick={props.handleClose}>No, keep writing</GAButton>
-          <GAButton>Yes, cancel post</GAButton>
+          <GAButton onClick={redirect}>Yes, cancel post</GAButton>
           </Stack>
           
         </Box>
