@@ -286,7 +286,12 @@ Card {
 .thread-header {
   position: sticky;
   top: 0;
+  padding: 0;
   background-color: antiquewhite;
+}
+
+.thread-header h3 {
+  padding: 0;
 }
 
 #open-new-reply-button {
@@ -349,4 +354,8 @@ pre {
 
 .no-margin {
   margin: 0;
+}
+
+.margin-left {
+  margin: 0 0 0 10px;
 }

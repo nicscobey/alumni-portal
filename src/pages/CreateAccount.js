@@ -14,7 +14,9 @@ const CreateAccount = (props) => {
         email: "",
         // confirmUsername: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        firstname: "",
+        lastname: ""
     });
 
 
@@ -47,12 +49,14 @@ const CreateAccount = (props) => {
     const signup = () => {
         console.log(form)
         console.log(JSON.stringify(form))
+        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname})
         return fetch(state.url + "/users", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(form),
+            // body: JSON.stringify(form),
+            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname})
         }).then((response) => response.json())
     }
 
@@ -62,6 +66,7 @@ const CreateAccount = (props) => {
 
     const handleChange = (event)=> {
         setForm({...form, [event.target.name]: event.target.value})
+        console.log(form)
     }
 
     const handleSubmit = async (event) => {
@@ -96,6 +101,8 @@ const CreateAccount = (props) => {
             setForm({
                 email: "",
                 // confirmUsername: "",
+                firstname: "",
+                lastname: "",
                 password: "",
                 confirmPassword: ""
             })
@@ -121,6 +128,8 @@ const CreateAccount = (props) => {
             <h3>Create Account</h3>
             <form className="flex-column" onSubmit={handleSubmit}>
                 <Stack spacing={2} className="center-items">
+                    <TextField required onChange={handleChange} type="text" name="firstname" label="First Name" value={form.firstname} className="fixed-width-input" />
+                    <TextField required onChange={handleChange} type="text" name="lastname" label="Last Name" value={form.lastname} className="fixed-width-input" />
                     <TextField required onChange={handleChange} type="text" name="email" label="Email" value={form.email} className="fixed-width-input" />
                     {/* <TextField required onChange={handleChange} type="text" name="confirmUsername" label="Confirm username" value={form.confirmUsername} className="fixed-width-input" /> */}
                     <TextField required  onChange={handleChange} type="password" name="password" label="Password" value={form.password} className="fixed-width-input" />

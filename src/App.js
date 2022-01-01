@@ -38,6 +38,7 @@ function App() {
         // console.log(url)
         // console.log(url + "/replies")
         // console.log(token)
+        console.log(state)
 
         //Create first message as the first forumreply
         await fetch(url + "/replies", {
@@ -47,8 +48,9 @@ function App() {
                 Authorization: "bearer " + token,
             },
             // body: JSON.stringify(newForumreply)
-            body: JSON.stringify({message: message, forum_id: forum_id, user_id: state.user_id})
+            body: JSON.stringify({message: message, forum_id: forum_id, user_id: state.user_id, firstname: state.first_name, lastname: state.last_name})
         })
+        console.log({message: message, forum_id: forum_id, user_id: state.user_id, firstname: state.first_name, lastname: state.last_name})
 
         // console.log({message: newForumreply.message, forum_id: forum.id, user_id: 4})
         // console.log(state)

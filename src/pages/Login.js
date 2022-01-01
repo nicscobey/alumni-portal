@@ -36,9 +36,9 @@ const Login = (props) => {
             //     console.log('hey')
             // }
             const {token, user} = userData
-            dispatch({type: "auth", payload: {token, email: user.email, user_id: user.id}})
+            dispatch({type: "auth", payload: {token, email: user.email, user_id: user.id, first_name: user.firstname, last_name: user.lastname}})
             console.log('bleep')
-            window.localStorage.setItem("auth", JSON.stringify({token, email: user.email, user_id: user.id}))
+            window.localStorage.setItem("auth", JSON.stringify({token, email: user.email, user_id: user.id, first_name: user.firstname, last_name: user.lastname}))
             history.push("/my/home")
             console.log(window.localStorage)
         }

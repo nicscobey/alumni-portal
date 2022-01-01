@@ -28,7 +28,9 @@ const JobBoard = (props) => {
 
     const [newForum, setNewForum] = useState({
         title: "",
-        user_id: state.user_id,  
+        user_id: state.user_id, 
+        firstname: state.first_name,
+        lastname: state.last_name 
     })
 
     const [newForumreply, setNewForumreply] = useState({

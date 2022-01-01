@@ -67,7 +67,7 @@ return (
             <div className="reply-bottom">
                 <div className="reply-bottom-left">
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    <b>{props.user_id}</b>
+                    <b>{props.firstname} {props.lastname}</b>
                     </Typography>
                     {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     Image

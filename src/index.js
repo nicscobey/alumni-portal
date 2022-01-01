@@ -11,18 +11,20 @@ import store from './app/store'
 import {AppState} from './AppState'
 
 ReactDOM.render(
+  <AppState>
+
   <Router>
     <React.StrictMode>
-      <AppState>
       {/* <Provider store={store}> */}
         <ThemeProvider theme={ColorTheme}>
           {/* <App /> */}
         <Route path="/" component={App} />
         </ThemeProvider>
       {/* </Provider> */}
-      </AppState>
     </React.StrictMode>
   </Router>
+  </AppState>
+
   ,
   document.getElementById('root')
 );

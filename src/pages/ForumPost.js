@@ -28,6 +28,7 @@ const JobBoard = (props) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [title, setTitle] = useState(null)
 
     // const targetId = parseInt(props.match.params.id);
 
@@ -67,8 +68,8 @@ const JobBoard = (props) => {
             }
         })
         const data = await response.json()
-        console.log(response)
-        console.log(data)
+        // console.log(response)
+        // console.log(data)
 
         const filteredReplies = data.filter(reply => reply.forum_id === forumId)
 
@@ -77,6 +78,17 @@ const JobBoard = (props) => {
 
         setReplies(filteredReplies)
 
+
+        const forumTitleResponse = await fetch(url + "/forums", {
+            method: "get",
+            headers: {
+                Authorization: "bearer " + token
+            }
+        })
+        const  titleData = await forumTitleResponse.json()
+        // console.log(titleData)
+        const myTitle = titleData.find(forum => forum.id === forumId)
+        setTitle(myTitle.title)
         // return (
         //     <>
         //         <h1>Got the data!</h1>
@@ -114,12 +126,12 @@ const JobBoard = (props) => {
 
     const mapReplies = () => {
         // return (
-        console.log('ready to map!')
-        console.log(replies)
+        // console.log('ready to map!')
+        // console.log(replies)
         // return "hi"
         return replies.map((reply, index) => {
-            console.log(index)
-            return <ForumReply replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at} />
+            // console.log(index)
+            return <ForumReply replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at} firstname={reply.firstname} lastname={reply.lastname}/>
         })
 
             console.log(replies)
@@ -137,9 +149,9 @@ const JobBoard = (props) => {
     return (
         <div className="">
             <DesktopNav />
-            <button onClick={log}>Click me!</button>
+            {/* <button onClick={log}>Click me!</button> */}
             <div className="thread-header">
-                <h2>Thread: {props._id}</h2>
+                <h3>{title ? title : null}</h3>
                 {showNewReply ? null : <GAButton onClick={toggleNewReply} id="open-new-reply-button" href="#new-reply">Reply to this Forum</GAButton>}
 
             </div>

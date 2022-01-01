@@ -475,7 +475,7 @@ export default function ForumTable() {
                         <p className="no-margin"><b><Link to={`/my/forum/${forum.id}`}>{forum.title}</Link></b></p>
                         {/* <p className="no-margin">Author: {forum.user_id}, {convertToDate(row.datePosted)}, {convertToDate(Date.now())}
                         </p> */}
-                        <p className="no-margin">Author: {forum.user_id}, {convertToDate(forum.created_at)}</p>
+                        <p className="margin-left"><i>Author:</i> {forum.firstname} {forum.lastname}<br/><i>Date Posted:</i> {convertToDate(forum.created_at)}</p>
                         
                       </TableCell>
                       {/* <TableCell align="right">

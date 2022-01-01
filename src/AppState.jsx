@@ -7,7 +7,9 @@ const initialState = {
     url: "http://localhost:3000",
     token: null,
     email: null, 
-    user_id: null
+    user_id: null,
+    first_name: null,
+    last_name: null
 }
 
 ///// REDUCER
