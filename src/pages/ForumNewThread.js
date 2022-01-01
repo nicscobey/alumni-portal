@@ -85,28 +85,29 @@ const JobBoard = (props) => {
     //         // return response.id
     // }
 
-    const saveForumreply = async (forum) => {
-        console.log(newForumreply)
+    const saveForumreply = props.saveForumreply
+    // const saveForumreply = async (forum) => {
+    //     console.log(newForumreply)
 
-        console.log(url)
-        console.log(url + "/replies")
-        console.log(token)
+    //     console.log(url)
+    //     console.log(url + "/replies")
+    //     console.log(token)
 
-        //Create first message as the first forumreply
-        await fetch(url + "/replies", {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "bearer " + token,
-            },
-            // body: JSON.stringify(newForumreply)
-            body: JSON.stringify({message: newForumreply.message, forum_id: forum.id, user_id: 4})
-        })
+    //     //Create first message as the first forumreply
+    //     await fetch(url + "/replies", {
+    //         method: "post",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: "bearer " + token,
+    //         },
+    //         // body: JSON.stringify(newForumreply)
+    //         body: JSON.stringify({message: newForumreply.message, forum_id: forum.id, user_id: 4})
+    //     })
 
-        console.log({message: newForumreply.message, forum_id: forum.id, user_id: 4})
-        console.log(state)
-        console.log(newForumreply)
-    }
+    //     console.log({message: newForumreply.message, forum_id: forum.id, user_id: 4})
+    //     console.log(state)
+    //     console.log(newForumreply)
+    // }
 
     const handleSubmit = async () => {
         if (newForum.title !== "") {
@@ -145,7 +146,7 @@ const JobBoard = (props) => {
                 console.log(forum.id)
                 setNewForumreply({...newForumreply, forum_id: forum.id})
                 // return forum.id
-                saveForumreply(forum)
+                saveForumreply(newForumreply.message, forum.id)
                 history.push(`/my/forum/${forum.id}`)
             })
 
@@ -179,6 +180,10 @@ const JobBoard = (props) => {
             alert("Please choose a title")
         }
     }
+
+    const redirect = () => {
+        history.push("/my/forum")
+      }
 
     // const toggleNewReply = () => {
     //     setShowNewReply(!showNewReply)
@@ -233,7 +238,7 @@ const JobBoard = (props) => {
                 <ForumNewReply handleChange={handleChange}/>
                 <div dangerouslySetInnerHTML={{ __html: convertText(value) }}/>
             </div> */}
-            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose}/> : null }
+            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={redirect} /> : null }
         </div>
     )
 }

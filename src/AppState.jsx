@@ -80,7 +80,9 @@ const reducer = (state, action) => {
 const AppContext = React.createContext(null)
 
 export const AppState = (props) => {
-    const [state, dispatch] = useReducer(reducer, initialState) 
+    const [state, dispatch] = useReducer(reducer, initialState)
+    console.log(state)
+    console.log(dispatch) 
 
     return <AppContext.Provider value={{state, dispatch}}>
         {props.children}

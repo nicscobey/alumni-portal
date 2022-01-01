@@ -3,8 +3,11 @@ import DesktopNav from "../components/DesktopNav";
 import ForumTable from "../components/ForumTable";
 import GAButton from '../components/Button'
 import { Link } from "react-router-dom";
+import { useAppState } from "../AppState";
+
 
 const Forum = () => {
+
     return (
         <div className="">
             <DesktopNav />

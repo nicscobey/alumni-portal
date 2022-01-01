@@ -37,8 +37,10 @@ const Login = (props) => {
             // }
             const {token, user} = userData
             dispatch({type: "auth", payload: {token, email: user.email, user_id: user.id}})
+            console.log('bleep')
             window.localStorage.setItem("auth", JSON.stringify({token, email: user.email, user_id: user.id}))
             history.push("/my/home")
+            console.log(window.localStorage)
         }
     }, [userData])
 

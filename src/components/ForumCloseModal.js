@@ -27,9 +27,7 @@ export default function ForumCloseModal(props) {
 
   const history = useHistory()
 
-  const redirect = () => {
-    history.push("/my/forum")
-  }
+  
 
   return (
     <div>
@@ -50,7 +48,7 @@ export default function ForumCloseModal(props) {
           <br />
           <Stack direction="row" spacing={2}>
           <GAButton onClick={props.handleClose}>No, keep writing</GAButton>
-          <GAButton onClick={redirect}>Yes, cancel post</GAButton>
+          <GAButton onClick={props.action}>Yes, cancel post</GAButton>
           </Stack>
           
         </Box>

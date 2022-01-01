@@ -29,18 +29,46 @@ function App() {
   const history = useHistory()
   const {state, dispatch} = useAppState()
 
+    const {token, url} = state
+
+
+    const saveForumreply = async (message, forum_id) => {
+        // console.log(newForumreply)
+
+        // console.log(url)
+        // console.log(url + "/replies")
+        // console.log(token)
+
+        //Create first message as the first forumreply
+        await fetch(url + "/replies", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "bearer " + token,
+            },
+            // body: JSON.stringify(newForumreply)
+            body: JSON.stringify({message: message, forum_id: forum_id, user_id: state.user_id})
+        })
+
+        // console.log({message: newForumreply.message, forum_id: forum.id, user_id: 4})
+        // console.log(state)
+        // console.log(newForumreply)
+    }
+
+
   useState(() => {
     const auth = JSON.parse(window.localStorage.getItem("auth"))
 
     if (auth) {
       console.log(auth)
       dispatch({type: "auth", payload: auth})
+      console.log(state)
       history.push("/my/home")
     } else {
       // history.push("/auth/login")
       history.push("/")
     }
-    }, [])
+  }, [])
   
   return (
     <div className="App">
@@ -74,10 +102,10 @@ function App() {
           <Forum />
         </Route>
         <Route exact path="/my/forum/new">
-          <ForumNewThread />
+          <ForumNewThread saveForumreply={saveForumreply}/>
         </Route>
         <Route path="/my/forum/:id">
-          <ForumPost />
+          <ForumPost saveForumreply={saveForumreply}/>
         </Route>
           {/* <Route path="/create-account" >
             <CreateAccount />
