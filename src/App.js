@@ -57,6 +57,27 @@ function App() {
         // console.log(newForumreply)
     }
 
+    const deleteReply = async (replyId) => {
+      console.log(replyId)
+      await fetch(state.url + "/replies/" + replyId, {
+        method: "delete",
+        headers: {
+          Authorization: "bearer " + token,
+        }
+      })
+    }
+
+    // const editReply = async (replyId) => {
+    //   await fetch(state.url + "/" + replyId, {
+    //     method: "put",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "bearer " + token,
+    //     },
+    //     body: JSON.stringify({message: message, forum_id: forum_id, user_id: state.user_id, firstname: state.first_name, lastname: state.last_name})
+    //   })
+    // }
+
 
   useState(() => {
     const auth = JSON.parse(window.localStorage.getItem("auth"))
@@ -107,7 +128,7 @@ function App() {
           <ForumNewThread saveForumreply={saveForumreply}/>
         </Route>
         <Route path="/my/forum/:id">
-          <ForumPost saveForumreply={saveForumreply}/>
+          <ForumPost saveForumreply={saveForumreply} deleteReply={deleteReply}/>
         </Route>
           {/* <Route path="/create-account" >
             <CreateAccount />

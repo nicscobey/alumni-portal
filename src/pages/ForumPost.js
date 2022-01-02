@@ -59,8 +59,8 @@ const JobBoard = (props) => {
     }
 
     const getReplies = async () => {
-        console.log(token)
-        console.log(state)
+        // console.log(token)
+        // console.log(state)
         const response = await fetch(url + "/replies", {
             method: "get",
             headers: {
@@ -89,6 +89,8 @@ const JobBoard = (props) => {
         // console.log(titleData)
         const myTitle = titleData.find(forum => forum.id === forumId)
         setTitle(myTitle.title)
+        console.log('hi, ducky')
+
         // return (
         //     <>
         //         <h1>Got the data!</h1>
@@ -129,9 +131,10 @@ const JobBoard = (props) => {
         // console.log('ready to map!')
         // console.log(replies)
         // return "hi"
+
         return replies.map((reply, index) => {
             // console.log(index)
-            return <ForumReply replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at} firstname={reply.firstname} lastname={reply.lastname}/>
+            return <ForumReply key={reply.id} replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at} firstname={reply.firstname} lastname={reply.lastname} deleteReply={props.deleteReply} getReplies={getReplies} reply_id={reply.id}/>
         })
 
             console.log(replies)
@@ -149,6 +152,7 @@ const JobBoard = (props) => {
     return (
         <div className="">
             <DesktopNav />
+            <button onClick={log}>Click</button>
             {/* <button onClick={log}>Click me!</button> */}
             <div className="thread-header">
                 <h3>{title ? title : null}</h3>

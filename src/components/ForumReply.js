@@ -5,7 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DOMPurify from "dompurify";
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import { useAppState } from '../AppState'; 
 
 // const bull = (
 // <Box
@@ -19,6 +22,9 @@ import DOMPurify from "dompurify";
 
 // replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at}
 export default function ForumReply(props) {
+
+    const {state} = useAppState()
+    // console.log(state)
 
     const convertText = (str) => {
         const myHTML = str;
@@ -57,12 +63,24 @@ export default function ForumReply(props) {
         return `${dateObj.getMonth()+1}-${dateObj.getDate()}-${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
     }
 
+    const deleteReply = async () => {
+        console.log('hi')
+        console.log(props.reply_id)
+        await props.deleteReply(props.reply_id)
+        await props.getReplies()
+        // props.mapReplies()
+    }
+
+    const editReply = async () => {
+
+    }
+
 return (
     <Card sx={{ width: 900, margin: "10px" }}>
         {/* <CardContent sx={{ padding: 0, margin: 0 }}> */}
             <div className="reply-top">
-                {/* <div className="reply-top-left">Date Posted</div> */}
-                <div className="reply-top-right">#{props.replyIndex + 1}</div>
+                <div className="reply-top-left">#{props.replyIndex + 1}</div>
+                {/* <div className="reply-top-right"><DeleteIcon fontSize="small"/></div> */}
             </div>
             <div className="reply-bottom">
                 <div className="reply-bottom-left">
@@ -80,7 +98,15 @@ return (
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom dangerouslySetInnerHTML={{ __html: convertText(props.message) }}>
                     {/* {props.message} */}
                     {/* <div dangerouslySetInnerHTML={{ __html: convertText(props.message) }}/> */}
+
                     </Typography>
+                    {state.user_id === props.user_id ? <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        <div className="edit-delete-reply">
+                            <IconButton><EditIcon/></IconButton>
+                            <IconButton onClick={deleteReply}><DeleteIcon/></IconButton>
+                        </div>
+                    </Typography> : null}
+
                 </div>
                 {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                 Word of the Day

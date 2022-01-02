@@ -108,7 +108,7 @@ return (
         {/* <CardContent sx={{ padding: 0, margin: 0 }}> */}
             <div className="reply-new-top">
                 <ThemeProvider theme={myTheme}>
-                    <MUIRichTextEditor value={props.value} onChange={props.handleChange} inlineToolbar={true} label="Click here to start typing..." controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote"]} />
+                    <MUIRichTextEditor value={props.value} onChange={props.handleChange} inlineToolbar={true} label="Click here to start typing..." controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "quote"]} />
                 </ThemeProvider>
 
                 {/* controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear"]} */}
