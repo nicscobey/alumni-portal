@@ -9,6 +9,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import { useAppState } from '../AppState'; 
+import { useState } from 'react'; 
+import ForumNewReply from './ForumNewReply';
+import { convertFromRaw, convertFromHTML, convertToRaw } from 'draft-js';
 
 // const bull = (
 // <Box
@@ -24,6 +27,7 @@ import { useAppState } from '../AppState';
 export default function ForumReply(props) {
 
     const {state} = useAppState()
+    // const [editOn, setEditOn] = useState(false)
     // console.log(state)
 
     const convertText = (str) => {
@@ -64,16 +68,37 @@ export default function ForumReply(props) {
     }
 
     const deleteReply = async () => {
-        console.log('hi')
-        console.log(props.reply_id)
         await props.deleteReply(props.reply_id)
         await props.getReplies()
-        // props.mapReplies()
     }
 
-    const editReply = async () => {
+    // const toggleEditReply = () => {
+    //     setEditOn(!editOn)
+    // }
+    // const editReply = async () => {
+    //     console.log('moo')
+    //     await props.editReply(props.reply_id, "new message")
+    //     await props.getReplies()
+    // }
 
-    }
+    // const Editor = () => {
+    //     console.log(props.message)
+    //     // console.log(convertFromHTML(props.message).contentBlocks)
+    //     // console.log(convertFromHTML(props.message).contentBlocks[0])
+    //     // console.log(convertFromHTML(props.message).contentBlocks[0]._map)
+
+    //     // console.log(convertFromHTML(props.message)[0])
+
+    //     console.log(JSON.stringify(convertFromHTML(props.message)))
+    //     // console.log(convertToRaw(props.message))
+    //     // console.log(convertFromRaw(props.message))
+    //     return (
+    //         <>
+    //             <h3>Hi you</h3>
+    //             <ForumNewReply myWidth={500}  />
+    //         </>
+    //     )
+    // }
 
 return (
     <Card sx={{ width: 900, margin: "10px" }}>
@@ -102,11 +127,13 @@ return (
                     </Typography>
                     {state.user_id === props.user_id ? <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         <div className="edit-delete-reply">
-                            <IconButton><EditIcon/></IconButton>
-                            <IconButton onClick={deleteReply}><DeleteIcon/></IconButton>
+                            {/* <IconButton onClick={toggleEditReply} ><EditIcon/></IconButton> */}
+                            <IconButton onClick={deleteReply}><DeleteIcon /></IconButton>
                         </div>
                     </Typography> : null}
-
+                    {/* {
+                        editOn ? Editor() : null
+                    } */}
                 </div>
                 {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                 Word of the Day

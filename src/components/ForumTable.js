@@ -172,7 +172,7 @@ const headCells = [
     id: 'dateLastReply',
     numeric: true,
     disablePadding: false,
-    label: 'Latest Reply',
+    label: 'Date Posted',
   },
 //   {
 //     id: 'author',
@@ -475,14 +475,14 @@ export default function ForumTable() {
                         <p className="no-margin"><b><Link to={`/my/forum/${forum.id}`}>{forum.title}</Link></b></p>
                         {/* <p className="no-margin">Author: {forum.user_id}, {convertToDate(row.datePosted)}, {convertToDate(Date.now())}
                         </p> */}
-                        <p className="margin-left"><i>Author:</i> {forum.firstname} {forum.lastname}<br/><i>Date Posted:</i> {convertToDate(forum.created_at)}</p>
+                        <p className="margin-left"><i>Author:</i> {forum.firstname} {forum.lastname}</p>
                         
                       </TableCell>
                       {/* <TableCell align="right">
                           {row.replies}
                         </TableCell>
                       <TableCell align="right">{row.views}</TableCell> */}
-                      <TableCell align="right">Last updated: {convertToDate(forum.updated_at)}</TableCell>
+                      <TableCell align="right"><i>Date posted: </i>{convertToDate(forum.created_at)}</TableCell>
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </StyledTableRow>
                   );

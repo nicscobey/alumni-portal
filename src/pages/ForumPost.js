@@ -110,7 +110,7 @@ const JobBoard = (props) => {
     const NewReply = () => {
         return (
             <div className="flex-center-column" id="new-reply">
-                <ForumNewReply toggleNewReply={toggleNewReply} handleChange={handleChange}/>
+                <ForumNewReply  myWidth={900} toggleNewReply={toggleNewReply} handleChange={handleChange}/>
                 <Stack direction="row" spacing={2}>
                     <GAButton onClick={saveReply}>Reply</GAButton>
 
@@ -134,7 +134,7 @@ const JobBoard = (props) => {
 
         return replies.map((reply, index) => {
             // console.log(index)
-            return <ForumReply key={reply.id} replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at} firstname={reply.firstname} lastname={reply.lastname} deleteReply={props.deleteReply} getReplies={getReplies} reply_id={reply.id}/>
+            return <ForumReply key={reply.id} replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at} firstname={reply.firstname} lastname={reply.lastname} deleteReply={props.deleteReply} editReply={props.editReply} getReplies={getReplies} reply_id={reply.id}/>
         })
 
             console.log(replies)
@@ -152,7 +152,7 @@ const JobBoard = (props) => {
     return (
         <div className="">
             <DesktopNav />
-            <button onClick={log}>Click</button>
+            {/* <button onClick={log}>Click</button> */}
             {/* <button onClick={log}>Click me!</button> */}
             <div className="thread-header">
                 <h3>{title ? title : null}</h3>

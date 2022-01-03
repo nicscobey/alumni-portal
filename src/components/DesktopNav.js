@@ -8,6 +8,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useHistory } from 'react-router-dom';
 import BasicMenu from './MenuItem';
 import {useAppState} from '../AppState'
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import EmailIcon from '@mui/icons-material/Email';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function DesktopNav() {
 
@@ -56,10 +59,13 @@ export default function DesktopNav() {
             <div>
               {state.token ? null : <div><Link to="/signup"><Button color="inherit">Sign Up</Button></Link>
               <Link to="/"><Button color="inherit">Log In</Button></Link></div>}
-              {state.token ? <Button onClick={()=> {
+              {state.token ? <>
+                <IconButton color="inherit"><EmailIcon /></IconButton>
+                <IconButton color="inherit" onClick={()=> {
                 dispatch({type: "logout"})
                 history.push("/")
-              }}>Log Out</Button> : null}
+              }}><LogoutIcon /></IconButton>
+              </> : null}
             </div>
         </Toolbar>
       </AppBar>

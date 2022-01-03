@@ -40,6 +40,7 @@ const JobBoard = (props) => {
     })
 
     const handleChange = event => {
+        console.log(event.getCurrentContent())
         const plainText = event.getCurrentContent().getPlainText() // for plain text
         const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
         // setValue(JSON.stringify(rteContent)) // store your rteContent to state
@@ -222,7 +223,7 @@ const JobBoard = (props) => {
 
 
             <div className="flex-center-column">
-                <ForumNewReply  handleChange={handleChange}/>
+                <ForumNewReply myWidth={900} handleChange={handleChange}/>
                 <Stack direction="row" spacing={2}>
                     <GAButton onClick={handleSubmit}>Post</GAButton>
 

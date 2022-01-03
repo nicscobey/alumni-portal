@@ -103,12 +103,15 @@ export default function ForumNewReply(props) {
     //     setValue(plainText)
     // }
 
+    console.log(props.value)
+    // console.log(myWidth)
+    console.log(props.myWidth)
 return (
-    <Card sx={{ width: 900, margin: "10px" }}>
+    <Card sx={{ width: props.myWidth, margin: "10px" }}>
         {/* <CardContent sx={{ padding: 0, margin: 0 }}> */}
             <div className="reply-new-top">
                 <ThemeProvider theme={myTheme}>
-                    <MUIRichTextEditor value={props.value} onChange={props.handleChange} inlineToolbar={true} label="Click here to start typing..." controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "quote"]} />
+                    <MUIRichTextEditor defaultValue={props.value} onChange={props.handleChange} inlineToolbar={true} label="Click here to start typing..." controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "quote"]} />
                 </ThemeProvider>
 
                 {/* controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear"]} */}

@@ -7,6 +7,12 @@ import AlumniPagination from "../components/AlumniPagination";
 import DesktopNav from "../components/DesktopNav";
 import { TextField} from "@mui/material";
 import { useAppState } from "../AppState";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+ 
 
 
 const AlumniDatabase = () => {
@@ -42,13 +48,15 @@ const AlumniDatabase = () => {
         return data.filter(alumnus => {
 
             
-            let takenCourse = false;
-            alumnus.gaprograms.forEach(course => {
-                if (course.includes(newSearch.gaProgram)) {
-                    takenCourse = true;
-                }
-            })
-            // console.log(alumnus)
+            // let takenCourse = false;
+            // alumnus.gaprograms.forEach(course => {
+            //     if (course.includes(newSearch.gaProgram)) {
+            //         takenCourse = true;
+            //     }
+            // })
+            console.log(alumnus)
+            console.log(alumnus.program)
+            console.log(newSearch.gaProgram)
             // console.log(alumnus.firstname.toLowerCase())
             // console.log(newSearch.firstName.toLowerCase())
             // console.log(alumnus.firstname.toLowerCase().includes(newSearch.firstName.toLowerCase()))
@@ -56,7 +64,8 @@ const AlumniDatabase = () => {
             return (
                 alumnus.firstname.toLowerCase().includes(newSearch.firstName.toLowerCase()) &&
                 alumnus.lastname.toLowerCase().includes(newSearch.lastName.toLowerCase()) && 
-                takenCourse
+                // takenCourse
+                alumnus.program.includes(newSearch.gaProgram)
                 // alumnus.jobTitle?.toLowerCase().includes(newSearch.jobTitle.toLowerCase()) &&
                 // alumnus.location?.toLowerCase().includes(newSearch.location.toLowerCase())
             )
@@ -65,6 +74,8 @@ const AlumniDatabase = () => {
 
     const handleChange = async (event) => {
         const newSearch = {...search, [event.target.name]: event.target.value};
+        console.log(event.target.name)
+        console.log(event.target.value)
         // const newResults = Alumni.filter(alumnus => {
 
             
@@ -118,6 +129,12 @@ const AlumniDatabase = () => {
         }
     }
 
+    // const [program, setProgram] = useState('');
+
+    // const handleChangeProgram = (event) => {
+    //     setProgram(event.target.value);
+    // };
+
     return (
         <div className="">
             <DesktopNav />
@@ -126,7 +143,25 @@ const AlumniDatabase = () => {
                 <TextField label="First Name" type="text" name="firstName" value={search.firstName} onChange={handleChange}  />
                 <TextField label="Last Name" type="text" name="lastName" value={search.lastName} onChange={handleChange} />
                 {/* CONSIDER ADDING THE MUI SELECT HERE INSTEAD */}
-                <select name="gaProgram" onChange={handleChange}>
+                <FormControl sx={{width: 250, textAlign: "left"}}>
+                    <InputLabel id="demo-simple-select-label">Select a Program</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={search.gaProgram}
+                        label="Select a Program"
+                        onChange={handleChange}
+                        name="gaProgram"
+                    >
+                        <MenuItem value={"Data Analytics"}>Data Analytics</MenuItem>
+                        <MenuItem value={"Data Science"}>Data Science</MenuItem>
+                        <MenuItem value={"Digital Marketing"}>Digital Marketing</MenuItem>
+                        <MenuItem value={"Product Management"}>Product Management</MenuItem>
+                        <MenuItem value={"Software Engineering"}>Software Engineering</MenuItem>
+                        <MenuItem value={"User Experience Design"}>User Experience Design</MenuItem>
+                    </Select>
+                </FormControl>
+                {/* <select name="gaProgram" onChange={handleChange}>
                     <option value="">Select a GA Program</option>
                     <option value="Data Analytics">Data Analytics</option>
                     <option value="Data Science">Data Science</option>
@@ -134,7 +169,7 @@ const AlumniDatabase = () => {
                     <option value="Product Management">Product Management</option>
                     <option value="Software Engineering">Software Engineering</option>
                     <option value="User Experience Design">User Experience Design</option>
-                </select>
+                </select> */}
                 {/* <TextField type="text" name="jobTitle" value={search.jobTitle} onChange={handleChange} placeholder="Job Title"/>
                 <TextField type="text" name="lastname" value={search.location} onChange={handleChange} placeholder="Location" /> */}
                 {/* <input type="submit" className="button" value="Search" /> */}

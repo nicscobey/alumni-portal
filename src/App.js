@@ -67,16 +67,17 @@ function App() {
       })
     }
 
-    // const editReply = async (replyId) => {
-    //   await fetch(state.url + "/" + replyId, {
-    //     method: "put",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "bearer " + token,
-    //     },
-    //     body: JSON.stringify({message: message, forum_id: forum_id, user_id: state.user_id, firstname: state.first_name, lastname: state.last_name})
-    //   })
-    // }
+    const editReply = async (replyId, message) => {
+      await fetch(state.url + "/replies/" + replyId, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + token,
+        },
+        body: JSON.stringify({message: message})
+        // body: JSON.stringify({message: message, forum_id: forum_id, user_id: state.user_id, firstname: state.first_name, lastname: state.last_name})
+      })
+    }
 
 
   useState(() => {
@@ -128,7 +129,7 @@ function App() {
           <ForumNewThread saveForumreply={saveForumreply}/>
         </Route>
         <Route path="/my/forum/:id">
-          <ForumPost saveForumreply={saveForumreply} deleteReply={deleteReply}/>
+          <ForumPost saveForumreply={saveForumreply} deleteReply={deleteReply} editReply={editReply}/>
         </Route>
           {/* <Route path="/create-account" >
             <CreateAccount />

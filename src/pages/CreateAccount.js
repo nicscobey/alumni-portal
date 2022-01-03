@@ -2,10 +2,18 @@ import Button from "../components/Button";
 import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import GAButton from "../components/Button";
-import { TextField, Stack } from "@mui/material";
+import { TextField, Stack, Select } from "@mui/material";
 import DesktopNav from "../components/DesktopNav";
 import {useAppState} from '../AppState'
 import {useParams, useHistory} from 'react-router-dom'
+import SelectGAProgram from '../components/SelectProgram'
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+// import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 
 const CreateAccount = (props) => {
     console.log(props);
@@ -16,8 +24,11 @@ const CreateAccount = (props) => {
         password: "",
         confirmPassword: "",
         firstname: "",
-        lastname: ""
+        lastname: "",
+        program: ""
     });
+
+    const [programs, setPrograms] = useState(null);
 
 
 
@@ -49,14 +60,16 @@ const CreateAccount = (props) => {
     const signup = () => {
         console.log(form)
         console.log(JSON.stringify(form))
-        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname})
+        console.log(programs)
+        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, gaprograms: programs})
+        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, gaprograms: programs})
         return fetch(state.url + "/users", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
             },
             // body: JSON.stringify(form),
-            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname})
+            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program})
         }).then((response) => response.json())
     }
 
@@ -66,7 +79,11 @@ const CreateAccount = (props) => {
 
     const handleChange = (event)=> {
         setForm({...form, [event.target.name]: event.target.value})
+        // if (event.target.name === "selectProgram") {
+        //     setForm({...form, [event.target.name]: event.target.value})
+        // }
         console.log(form)
+        console.log(event.target.name)
     }
 
     const handleSubmit = async (event) => {
@@ -97,6 +114,9 @@ const CreateAccount = (props) => {
             alert('passwords must match!')
             // console.log(event.target.password.value, event.target.confirmPassword.value)
         }
+        else if (programs.length === 0) {
+            alert('Please select at least 1 GA Program!')
+        }
         else {
             setForm({
                 email: "",
@@ -104,7 +124,7 @@ const CreateAccount = (props) => {
                 firstname: "",
                 lastname: "",
                 password: "",
-                confirmPassword: ""
+                confirmPassword: "",
             })
             // props.history.push("/")
             signup().then((data) => {
@@ -120,6 +140,66 @@ const CreateAccount = (props) => {
         }
     }
 
+    function SelectGAProgram() {
+
+        const ITEM_HEIGHT = 48;
+        const ITEM_PADDING_TOP = 8;
+        const MenuProps = {
+        PaperProps: {
+            style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+            },
+        },
+        };
+
+        const GAprograms = [
+        'Data Analytics',
+        'Data Science',
+        'Digital Marketing', 
+        'Product Management', 
+        'Software Engineering',
+        'User Experience Design'
+        ];
+      
+        // const handleChange = (event) => {
+        //   const {
+        //     target: { value },
+        //   } = event;
+        //   setPrograms(
+        //     // On autofill we get a stringified value.
+        //     typeof value === 'string' ? value.split(',') : value,
+        //   );
+
+        //   console.log(programs)
+        // };
+      
+        return (
+          <div>
+            <FormControl sx={{ m: 1, width: 500 }}>
+              <InputLabel id="demo-multiple-checkbox-label">Program</InputLabel>
+              <Select
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-checkbox"
+                name="program"
+                value={programs}
+                onChange={handleChange}
+                input={<OutlinedInput label="Program" />}
+                renderValue={(selected) => selected.join(', ')}
+                MenuProps={MenuProps}
+              >
+                {GAprograms.map((program) => (
+                  <MenuItem key={program} value={program}>
+                    {/* <Checkbox checked={programs.indexOf(program) > -1} /> */}
+                    <ListItemText primary={program} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        );
+      }
+
     return (
         <>
         <DesktopNav />
@@ -134,6 +214,7 @@ const CreateAccount = (props) => {
                     {/* <TextField required onChange={handleChange} type="text" name="confirmUsername" label="Confirm username" value={form.confirmUsername} className="fixed-width-input" /> */}
                     <TextField required  onChange={handleChange} type="password" name="password" label="Password" value={form.password} className="fixed-width-input" />
                     <TextField required onChange={handleChange} type="password" name="confirmPassword" label="Confirm password" value={form.confirmPassword} className="fixed-width-input" />
+                    <SelectGAProgram name="program"/>
                     {/* Note: Might have an issue with the button below being a button, not an input? */}
                     <GAButton type="submit">Create Account</GAButton>
                 </Stack>
