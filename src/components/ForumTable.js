@@ -117,7 +117,7 @@ const rows = [
 
 //topic (with author's name), replies, last post by (with time & author's name), views 
 
-console.log(rows)
+// console.log(rows)
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {

@@ -18,6 +18,16 @@ const Profile = (props) => {
 
     const [profile, setProfile] = useState(null)
 
+    // const loadProfile = async () => {
+    //     // props.getProfile()
+    //     console.log(props)
+    //     console.log(targetId)
+    //     const response = await props.getProfile(targetId)
+    //     console.log(response)
+    //     const data = await response.json()
+    //     console.log(data)
+    //     setProfile(data)
+    // }
     const getProfile = async () => {
         // const newProfile = Alumni.find(alumnus => alumnus.id===targetId);
         const alumni = await (await fetch(state.url + "/users", {
@@ -63,10 +73,23 @@ const Profile = (props) => {
     // useEffect(() => {setProfile(profile)}, [])
     useEffect(() => {setProfile(getProfile)}, [])
 
+   
 
     console.log(profile)
 
     const loadedResults = () => {
+
+        // const bio = () => {
+        //     if (state.user_id === targetId) {
+        //         console.log('this is your profile!')
+        //     }
+        //     else {
+        //         console.log('not your profile :(')
+        //     }
+        // }
+
+        // bio()
+
         return (
             <div className="alumni-profile">
                 <DesktopNav />

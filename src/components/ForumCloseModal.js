@@ -27,8 +27,6 @@ export default function ForumCloseModal(props) {
 
   const history = useHistory()
 
-  
-
   return (
     <div>
       {/* <Button onClick={props.handleOpen}>Open modal</Button> */}
@@ -43,14 +41,15 @@ export default function ForumCloseModal(props) {
             Are you sure you wish to cancel this post? This action cannot be undone.
           </Typography> */}
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Are you sure you wish to cancel this post? This action cannot be undone.
+          {props.message}
           </Typography>
           <br />
+          {props.message === "It looks like your profile is incomplete. Please enter a bio below." ? props.addBio() : null}
+          {/* <br /> */}
           <Stack direction="row" spacing={2}>
-          <GAButton onClick={props.handleClose}>No, keep writing</GAButton>
-          <GAButton onClick={props.action}>Yes, cancel post</GAButton>
+            <GAButton onClick={props.action}>{props.buttonB}</GAButton>
+            <GAButton onClick={props.handleClose}>{props.buttonA}</GAButton>
           </Stack>
-          
         </Box>
       </Modal>
     </div>

@@ -3,13 +3,14 @@ import React, {useReducer, useContext} from 'react'
 ////// INITIAL STATE
 
 const initialState = {
-    // url: "http://alumni-portal-back-end.herokuapp.com",
-    url: "http://localhost:3000",
+    url: "http://alumni-portal-back-end.herokuapp.com",
+    // url: "http://localhost:3000",
     token: null,
     email: null, 
     user_id: null,
     first_name: null,
-    last_name: null
+    last_name: null, 
+    bio: null
 }
 
 ///// REDUCER
@@ -84,7 +85,7 @@ const AppContext = React.createContext(null)
 export const AppState = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     console.log(state)
-    console.log(dispatch) 
+    // console.log(dispatch) 
 
     return <AppContext.Provider value={{state, dispatch}}>
         {props.children}

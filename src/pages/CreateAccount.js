@@ -25,7 +25,8 @@ const CreateAccount = (props) => {
         confirmPassword: "",
         firstname: "",
         lastname: "",
-        program: ""
+        program: "",
+        bio: ""
     });
 
     const [programs, setPrograms] = useState(null);
@@ -57,19 +58,18 @@ const CreateAccount = (props) => {
         }
     }, [userData])
 
-    const signup = () => {
+    const signup = async () => {
         console.log(form)
         console.log(JSON.stringify(form))
-        console.log(programs)
-        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, gaprograms: programs})
-        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, gaprograms: programs})
+        // console.log(programs)
+        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program})
+        console.log({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program})
         return fetch(state.url + "/users", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
             },
-            // body: JSON.stringify(form),
-            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program})
+            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program, bio: form.bio})
         }).then((response) => response.json())
     }
 
@@ -84,6 +84,7 @@ const CreateAccount = (props) => {
         // }
         console.log(form)
         console.log(event.target.name)
+        console.log(event.target.value)
     }
 
     const handleSubmit = async (event) => {
@@ -114,9 +115,9 @@ const CreateAccount = (props) => {
             alert('passwords must match!')
             // console.log(event.target.password.value, event.target.confirmPassword.value)
         }
-        else if (programs.length === 0) {
-            alert('Please select at least 1 GA Program!')
-        }
+        // else if (programs.length === 0) {
+        //     alert('Please select at least 1 GA Program!')
+        // }
         else {
             setForm({
                 email: "",
@@ -125,6 +126,8 @@ const CreateAccount = (props) => {
                 lastname: "",
                 password: "",
                 confirmPassword: "",
+                program: "",
+                bio: ""
             })
             // props.history.push("/")
             signup().then((data) => {
@@ -176,16 +179,16 @@ const CreateAccount = (props) => {
       
         return (
           <div>
-            <FormControl sx={{ m: 1, width: 500 }}>
+            <FormControl sx={{ width: 500, textAlign: "left" }}>
               <InputLabel id="demo-multiple-checkbox-label">Program</InputLabel>
               <Select
                 labelId="demo-multiple-checkbox-label"
                 id="demo-multiple-checkbox"
                 name="program"
-                value={programs}
+                value={form.program}
                 onChange={handleChange}
                 input={<OutlinedInput label="Program" />}
-                renderValue={(selected) => selected.join(', ')}
+                // renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
               >
                 {GAprograms.map((program) => (
@@ -216,6 +219,7 @@ const CreateAccount = (props) => {
                     <TextField required onChange={handleChange} type="password" name="confirmPassword" label="Confirm password" value={form.confirmPassword} className="fixed-width-input" />
                     <SelectGAProgram name="program"/>
                     {/* Note: Might have an issue with the button below being a button, not an input? */}
+                    <TextField required multiline onChange={handleChange} type="text" name="bio" value={form.bio} label="Enter a quick bio about yourself" className="fixed-width-input" />  
                     <GAButton type="submit">Create Account</GAButton>
                 </Stack>
             </form>

@@ -31,6 +31,19 @@ function App() {
 
     const {token, url} = state
 
+    const getProfile = async (targetId) => {
+      // const newProfile = Alumni.find(alumnus => alumnus.id===targetId);
+      const alumni = await (await fetch(state.url + "/users/" + targetId, {
+          method: "get",
+          headers: {
+              Authorization: "bearer " + token,
+          }
+      })).json()
+      // return await alumni.find(alumnus => alumnus.id === targetId)
+      console.log(alumni)
+      return alumni
+      // console.log(newProfile);
+  }
 
     const saveForumreply = async (message, forum_id) => {
         // console.log(newForumreply)
@@ -110,7 +123,7 @@ function App() {
           <Home />
         </Route>
         <Route path="/my/alumni/:id" render={(rp) => (
-          <Profile {...rp}/>
+          <Profile {...rp } getProfile={getProfile}/>
         )} />
         {/* </Route> */}
         <Route path="/my/apptracker">

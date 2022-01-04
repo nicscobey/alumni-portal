@@ -241,7 +241,7 @@ const JobBoard = (props) => {
                 <ForumNewReply handleChange={handleChange}/>
                 <div dangerouslySetInnerHTML={{ __html: convertText(value) }}/>
             </div> */}
-            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={redirect} /> : null }
+            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={redirect} message={"Are you sure you wish to cancel this post? This action cannot be undone."} buttonA={"No, keep writing"} buttonB={"Yes, cancel post"} /> : null }
         </div>
     )
 }

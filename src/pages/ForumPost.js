@@ -165,7 +165,7 @@ const JobBoard = (props) => {
                 { replies ? mapReplies() : <h1>no data yet...</h1>}
             </div>
             {showNewReply ? NewReply() : null}
-            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={toggleNewReply}/> : null }
+            {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={toggleNewReply} message={"Are you sure you wish to cancel this reply? This action cannot be undone."} buttonA={"No, keep writing"} buttonB={"Yes, cancel reply"}/> : null }
             {/* <div className="flex-center-column">
                 <ForumNewReply handleChange={handleChange}/>
                 <div dangerouslySetInnerHTML={{ __html: convertText(value) }}/>
