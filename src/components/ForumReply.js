@@ -6,12 +6,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DOMPurify from "dompurify";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import { useAppState } from '../AppState'; 
 import { useState } from 'react'; 
 import ForumNewReply from './ForumNewReply';
 import { convertFromRaw, convertFromHTML, convertToRaw } from 'draft-js';
+import GAButton from '../components/Button'
+import draftToHtml from 'draftjs-to-html';
 
 // const bull = (
 // <Box
@@ -27,8 +29,16 @@ import { convertFromRaw, convertFromHTML, convertToRaw } from 'draft-js';
 export default function ForumReply(props) {
 
     const {state} = useAppState()
-    // const [editOn, setEditOn] = useState(false)
-    // console.log(state)
+    const [editOn, setEditOn] = useState(false)
+
+    const [value, setValue] = useState('')
+
+    const [newForumreply, setNewForumreply] = useState({
+        message: ""
+    })
+
+
+    console.log(state)
 
     const convertText = (str) => {
         const myHTML = str;
@@ -38,6 +48,8 @@ export default function ForumReply(props) {
 
     const convertToDate = (ms) => {
         const dateObj = new Date(ms)
+        console.log(dateObj)
+        console.log(dateObj.getHours())
   
       let hour
   
@@ -50,6 +62,7 @@ export default function ForumReply(props) {
       else {
           hour = dateObj.getHours() + 1
       }
+      console.log(hour)
   
       // let minutes
   
@@ -72,33 +85,62 @@ export default function ForumReply(props) {
         await props.getReplies()
     }
 
-    // const toggleEditReply = () => {
-    //     setEditOn(!editOn)
-    // }
-    // const editReply = async () => {
-    //     console.log('moo')
-    //     await props.editReply(props.reply_id, "new message")
-    //     await props.getReplies()
+    const toggleEditReply = () => {
+        setEditOn(!editOn)
+    }
+
+    const editReply = async () => {
+        console.log('moo')
+        console.log(newForumreply)
+        await props.editReply(props.reply_id, newForumreply.message)
+        await props.getReplies()
+        toggleEditReply()
+    }
+
+    // const saveReply = async () => {
+    //     await saveForumreply(value, forumId)
+    //     await getReplies()
+    //     setValue('')
     // }
 
-    // const Editor = () => {
-    //     console.log(props.message)
-    //     // console.log(convertFromHTML(props.message).contentBlocks)
-    //     // console.log(convertFromHTML(props.message).contentBlocks[0])
-    //     // console.log(convertFromHTML(props.message).contentBlocks[0]._map)
+    const Editor = () => {
+        console.log(props.message)
+        // console.log(convertFromHTML(props.message).contentBlocks)
+        // console.log(convertFromHTML(props.message).contentBlocks[0])
+        // console.log(convertFromHTML(props.message).contentBlocks[0]._map)
 
-    //     // console.log(convertFromHTML(props.message)[0])
+        // console.log(convertFromHTML(props.message)[0])
 
-    //     console.log(JSON.stringify(convertFromHTML(props.message)))
-    //     // console.log(convertToRaw(props.message))
-    //     // console.log(convertFromRaw(props.message))
-    //     return (
-    //         <>
-    //             <h3>Hi you</h3>
-    //             <ForumNewReply myWidth={500}  />
-    //         </>
-    //     )
-    // }
+        console.log(JSON.stringify(convertFromHTML(props.message)))
+        // console.log(convertToRaw(props.message))
+        // console.log(convertFromRaw(props.message))
+        const handleChangeReply = event => {
+            console.log(event.getCurrentContent())
+            const plainText = event.getCurrentContent().getPlainText() // for plain text
+            const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+            // setValue(JSON.stringify(rteContent)) // store your rteContent to state
+            console.log(event.getCurrentContent())
+            console.log(rteContent)
+            console.log(plainText)
+            // console.log(plainText)
+            setValue(draftToHtml(rteContent))
+            // setValue(rteContent)
+            // setValue(plainText)
+            setNewForumreply({...newForumreply, message: draftToHtml(rteContent)})
+            console.log(newForumreply)
+        }
+
+
+        return (
+            <>
+                <ForumNewReply myWidth={625} handleChange={handleChangeReply} />
+                <Stack direction="row" spacing={2} sx={{marginBottom: 2}} justifyContent="center">
+                    <GAButton onClick={editReply}>Update</GAButton>
+                    <GAButton onClick={toggleEditReply}>Cancel</GAButton>
+                </Stack>
+            </>
+        )
+    }
 
 return (
     <Card sx={{ width: 900, margin: "10px" }}>
@@ -125,15 +167,15 @@ return (
                     {/* <div dangerouslySetInnerHTML={{ __html: convertText(props.message) }}/> */}
 
                     </Typography>
-                    {state.user_id === props.user_id ? <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    {state.user_id === props.user_id && !editOn ? <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         <div className="edit-delete-reply">
-                            {/* <IconButton onClick={toggleEditReply} ><EditIcon/></IconButton> */}
+                            <IconButton onClick={toggleEditReply} ><EditIcon/></IconButton>
                             <IconButton onClick={deleteReply}><DeleteIcon /></IconButton>
                         </div>
                     </Typography> : null}
-                    {/* {
+                    {
                         editOn ? Editor() : null
-                    } */}
+                    }
                 </div>
                 {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                 Word of the Day

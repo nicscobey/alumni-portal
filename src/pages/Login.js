@@ -60,7 +60,7 @@ const Login = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert('logged in!');
+        // alert('logged in!');
         // setForm({
         //     username: "",
         //     password: ""
@@ -74,7 +74,8 @@ const Login = (props) => {
         <>
             <DesktopNav />
             <div className="login-page">
-                <h2>LOGO</h2>
+                <img className="logo" src="https://ga-shop-production-herokuapp-com.global.ssl.fastly.net/assets/images/logo_1200_by_627_1QIVL.jpg" width="300px" />
+                {/* <h2>LOGO</h2> */}
                 <form onSubmit={handleSubmit}>
                     <Stack spacing={2} className="center-items">
                         <TextField label="Email" onChange={handleChange} type="text" name="email" value={form.email} />

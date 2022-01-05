@@ -31,9 +31,11 @@ export default function DesktopNav() {
               >
                 <MenuIcon />
               </IconButton> */}
-              <Typography variant="h6">
-                APPNAME
-              </Typography>
+              {/* <Typography variant="h6"> */}
+                {/* APPNAME */}
+                <img src="https://ga-core.s3.amazonaws.com/production/uploads/program/default_image/9142/thumb_CMYK-Red_Small_GeneralAssembly-Cog.png" width="60px" alt="GA Logo" />
+
+              {/* </Typography> */}
 
               {state.token ? <>
                 <div>

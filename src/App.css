@@ -13,6 +13,10 @@
   }
 }
 
+.logo {
+  margin-top: 10px;
+}
+
 .login-page,
 .create-account-page {
   /* background-color: #282c34; */
@@ -243,6 +247,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 10;
 }
 
 .toolbar-left {

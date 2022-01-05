@@ -12,7 +12,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
- 
+import LoadingIcon from '../components/LoadingIcon'
+
 
 
 const AlumniDatabase = () => {
@@ -139,6 +140,7 @@ const AlumniDatabase = () => {
         <div className="">
             <DesktopNav />
             <h2>Alumni Database</h2>
+            {results ? null : <h3>Enter some search parameters to get started!</h3>}
             <form>
                 <TextField label="First Name" type="text" name="firstName" value={search.firstName} onChange={handleChange}  />
                 <TextField label="Last Name" type="text" name="lastName" value={search.lastName} onChange={handleChange} />
@@ -176,7 +178,7 @@ const AlumniDatabase = () => {
             </form>
             {/* <AlumniSearchResults /> */}
             <div className="alumni-search-results">
-                {results ? loadedResults() : loadingResults() }
+                {results ? loadedResults() : null }
             </div>
             {/* <AlumniPagination results={results} setPage={setPage}/> */}
         </div>

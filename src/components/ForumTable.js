@@ -25,6 +25,8 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import {useAppState} from '../AppState'
 import {useState, useEffect} from 'react'
+import LoadingIcon from '../components/LoadingIcon'
+
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -253,7 +255,7 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-      {numSelected > 0 ? (
+      {/* {numSelected > 0 ? (
         <Typography
           sx={{ flex: '1 1 100%' }}
           color="inherit"
@@ -271,7 +273,7 @@ const EnhancedTableToolbar = (props) => {
         >
           Nutrition
         </Typography>
-      )}
+      )} */}
 
       {/* {numSelected > 0 ? (
         <Tooltip title="Delete">
@@ -519,7 +521,7 @@ export default function ForumTable() {
   return (
     <>
               {/* <button onClick={retrieveData}>Test</button> */}
-      {data ? returnTable() : null}
+      {data ? returnTable() : <LoadingIcon /> }
     </>
   );
 }

@@ -12,6 +12,8 @@ import { Stack } from "@mui/material";
 import { useAppState } from "../AppState";
 import { useParams } from "react-router-dom";
 import ForumCloseModal from '../components/ForumCloseModal'
+import LoadingIcon from '../components/LoadingIcon'
+
 
 // NOW I NEED TO MODIFY THE BUTTONS THAT SHOW UP SO IT'S ONLY THE BUTTONS THAT WE NEED
 
@@ -162,7 +164,7 @@ const JobBoard = (props) => {
             <div className="flex-center-column">
                 {/* <ForumReply />
                 <ForumReply /> */}
-                { replies ? mapReplies() : <h1>no data yet...</h1>}
+                { replies ? mapReplies() : <LoadingIcon /> }
             </div>
             {showNewReply ? NewReply() : null}
             {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={toggleNewReply} message={"Are you sure you wish to cancel this reply? This action cannot be undone."} buttonA={"No, keep writing"} buttonB={"Yes, cancel reply"}/> : null }

@@ -6,6 +6,9 @@ import Alumni from "../SampleAlumni";
 import DesktopNav from "../components/DesktopNav";
 import { useParams } from "react-router-dom";
 import { useAppState } from "../AppState";
+import LoadingIcon from '../components/LoadingIcon'
+// import GAButton from '../components/Button'
+import { TextField } from "@mui/material";
 
 
 const Profile = (props) => {
@@ -66,9 +69,9 @@ const Profile = (props) => {
         $(".message-modal").toggle();
     }
 
-    const loadingResults = () => {
-        return <h3>Loading...</h3>
-    }
+    // const loadingResults = () => {
+    //     return <h3>Loading...</h3>
+    // }
 
     // useEffect(() => {setProfile(profile)}, [])
     useEffect(() => {setProfile(getProfile)}, [])
@@ -110,9 +113,10 @@ const Profile = (props) => {
                     <form  onSubmit={handleSubmit}className="message-box" id="message-box">
                         <h3 style={{margin: "0 auto 5px auto"}}>Send Message to {profile.firstname}</h3>
                         <div className="close-modal" onClick={closeOpenModal}>&#10005;</div>
-                        <input style={{"fontWeight": "bold"}} onChange={handleChange} name="subject" type="text" value={message.subject} placeholder="Subject" className="fixed-width-input" />
-                        <textarea onChange={handleChange} name="message" type="text" value={message.message} placeholder="Enter your message here..." className="fixed-width-input fixed-height-input" />
-                        <input className="button" type="submit" value="Send Message" />
+                        <TextField style={{"fontWeight": "bold", margin: 20}} onChange={handleChange} name="subject" label="Subject" type="text" value={message.subject} placeholder="Subject" className="fixed-width-input" />
+                        <TextField multiline sx={{height: "300px"}} onChange={handleChange} label="Message" name="message" type="text" value={message.message} placeholder="Enter your message here..." className="fixed-width-input fixed-height-input" />
+                        {/* <input className="button" type="submit" value="Send Message" /> */}
+                        <GAButton>Send</GAButton>
                     </form>
                 </div>
             </div>
@@ -120,7 +124,7 @@ const Profile = (props) => {
     }
 
     return (
-        profile ? loadedResults() : loadingResults()
+        profile ? loadedResults() : <LoadingIcon />
     )
 }
 

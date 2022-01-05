@@ -26,7 +26,6 @@ const CreateAccount = (props) => {
         firstname: "",
         lastname: "",
         program: "",
-        bio: ""
     });
 
     const [programs, setPrograms] = useState(null);
@@ -69,7 +68,7 @@ const CreateAccount = (props) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program, bio: form.bio})
+            body: JSON.stringify({email: form.email, password: form.password, firstname: form.firstname, lastname: form.lastname, program: form.program})
         }).then((response) => response.json())
     }
 
@@ -127,7 +126,6 @@ const CreateAccount = (props) => {
                 password: "",
                 confirmPassword: "",
                 program: "",
-                bio: ""
             })
             // props.history.push("/")
             signup().then((data) => {
@@ -207,7 +205,8 @@ const CreateAccount = (props) => {
         <>
         <DesktopNav />
         <div className="create-account-page">
-            <h2>LOGO</h2>
+            <img className="logo" src="https://ga-shop-production-herokuapp-com.global.ssl.fastly.net/assets/images/logo_1200_by_627_1QIVL.jpg" width="300px" />
+            {/* <h2>LOGO</h2> */}
             <h3>Create Account</h3>
             <form className="flex-column" onSubmit={handleSubmit}>
                 <Stack spacing={2} className="center-items">
@@ -218,7 +217,6 @@ const CreateAccount = (props) => {
                     <TextField required  onChange={handleChange} type="password" name="password" label="Password" value={form.password} className="fixed-width-input" />
                     <TextField required onChange={handleChange} type="password" name="confirmPassword" label="Confirm password" value={form.confirmPassword} className="fixed-width-input" />
                     <SelectGAProgram name="program"/>
-                    {/* Note: Might have an issue with the button below being a button, not an input? */}
                     <TextField required multiline onChange={handleChange} type="text" name="bio" value={form.bio} label="Enter a quick bio about yourself" className="fixed-width-input" />  
                     <GAButton type="submit">Create Account</GAButton>
                 </Stack>

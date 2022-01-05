@@ -74,7 +74,7 @@ const GACard = (props) => {
                 <CardLink id={`{props.title}-card-link`}>
                 <div className="card-left">
                     <div className="bold">{props.title}</div>
-                    <div>Last updated: {props.lastUpdated}</div>
+                    {/* <div>Last updated: {props.lastUpdated}</div> */}
                     <div>{props.description}</div>
                 </div>
                 <div className="card-right" id={`${title}-arrow`}>
