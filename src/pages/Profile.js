@@ -15,24 +15,10 @@ const Profile = (props) => {
 
     const {state, dispatch} = useAppState()
     const {token, url } = state;
-
     const targetId = parseInt(props.match.params.id);
-    // const targetId = parseInt(useParams().id)
-
     const [profile, setProfile] = useState(null)
 
-    // const loadProfile = async () => {
-    //     // props.getProfile()
-    //     console.log(props)
-    //     console.log(targetId)
-    //     const response = await props.getProfile(targetId)
-    //     console.log(response)
-    //     const data = await response.json()
-    //     console.log(data)
-    //     setProfile(data)
-    // }
     const getProfile = async () => {
-        // const newProfile = Alumni.find(alumnus => alumnus.id===targetId);
         const alumni = await (await fetch(state.url + "/users", {
             method: "get",
             headers: {
@@ -40,11 +26,8 @@ const Profile = (props) => {
             }
         })).json()
         const newProfile = await alumni.find(alumnus => alumnus.id === targetId)
-        console.log(newProfile);
         setProfile(newProfile)
     }
-
-    //need to do the thing that sets the initial state one time
 
     const [message, setMessage] = useState({
         subject: "",
@@ -69,16 +52,8 @@ const Profile = (props) => {
         $(".message-modal").toggle();
     }
 
-    // const loadingResults = () => {
-    //     return <h3>Loading...</h3>
-    // }
-
     // useEffect(() => {setProfile(profile)}, [])
     useEffect(() => {setProfile(getProfile)}, [])
-
-   
-
-    console.log(profile)
 
     const loadedResults = () => {
 
@@ -115,7 +90,6 @@ const Profile = (props) => {
                         <div className="close-modal" onClick={closeOpenModal}>&#10005;</div>
                         <TextField style={{"fontWeight": "bold", margin: 20}} onChange={handleChange} name="subject" label="Subject" type="text" value={message.subject} placeholder="Subject" className="fixed-width-input" />
                         <TextField multiline sx={{height: "300px"}} onChange={handleChange} label="Message" name="message" type="text" value={message.message} placeholder="Enter your message here..." className="fixed-width-input fixed-height-input" />
-                        {/* <input className="button" type="submit" value="Send Message" /> */}
                         <GAButton>Send</GAButton>
                     </form>
                 </div>

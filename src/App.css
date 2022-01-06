@@ -19,14 +19,11 @@
 
 .login-page,
 .create-account-page {
-  /* background-color: #282c34; */
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* font-size: calc(10px + 2vmin); */
-  /* color: white; */
 }
 
 .profile-header {
@@ -65,18 +62,6 @@
   background-color: #f6f6f6;
   padding: 25px;
 }
-
-/* .card {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  max-width: 400px;
-  background-color: white;
-  align-items: center;
-  margin: 25px auto 25px auto;
-} */
 
 .card:hover {
   cursor: pointer;
@@ -140,14 +125,6 @@ a:visited {
   border-radius: 2px;
 }
 
-/* input[type="text"],
-input[type="password"],
-select {
-  height: 40px;
-  min-width: 225px;
-  margin: 5px;
-} */
-
 .fixed-width-input {
   width: 500px;
 }
@@ -168,7 +145,6 @@ textarea {
   position: absolute;
   top: 0;
   right: 0;
-  /* color: white; */
   font-weight: bold;
   margin: 15px;
   font-size: 20px;
@@ -177,12 +153,6 @@ textarea {
 .close-modal:hover {
   cursor: pointer;
 }
-
-/* .flex-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
 .button {
   width: 225px;
@@ -207,18 +177,6 @@ textarea {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-
-/* @keyframes animateArrow {
-  0% {
-    transform: translateX(0px);
-  }
-  50% {
-    transform: translateX(8px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-} */
 
 @keyframes animateArrow {
   0% {
@@ -277,9 +235,6 @@ textarea {
 }
 
 .edit-delete-reply {
-  /* position: relative;
-  bottom: 0;
-  right: 0; */
   text-align: right;
   position: relative;
   bottom: 0;
@@ -304,8 +259,11 @@ Card {
   position: sticky;
   top: 0;
   padding: 0;
-  background-color: antiquewhite;
+  background-color: white;
   z-index: 1;
+  padding-top: 2px;
+  padding-bottom: 10px;
+  border-bottom: 4px solid black;
 }
 
 .thread-header h3 {
@@ -315,12 +273,6 @@ Card {
 #open-new-reply-button {
   color: white;
 }
-
-/* .reply-top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-} */
 
 .reply-bottom {
   display: flex;
@@ -340,7 +292,6 @@ Card {
 }
 
 .reply-new-top {
-  /* height: 350px; */
   min-height: 75px;
   text-align: left;
 }
@@ -348,15 +299,6 @@ Card {
 .reply-new-bottom {
   padding: 10px;
 }
-/* 
-.MUIRichTextEditor-editorContainer-5 {
-  margin-right: 10px;
-  margin-left: 10px !important;
-} */
-/* 
-.MuiButtonBase-root {
-  color: white !important;
-} */
 
 code-block {
   color: blue;

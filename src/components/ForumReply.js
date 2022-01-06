@@ -15,30 +15,16 @@ import { convertFromRaw, convertFromHTML, convertToRaw } from 'draft-js';
 import GAButton from '../components/Button'
 import draftToHtml from 'draftjs-to-html';
 
-// const bull = (
-// <Box
-//     component="span"
-//     sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-// >
-//     •
-// </Box>
-// );
 
 
-// replyIndex={index} message={reply.message} user_id={reply.user_id} posted={reply.created_at}
 export default function ForumReply(props) {
 
     const {state} = useAppState()
     const [editOn, setEditOn] = useState(false)
-
     const [value, setValue] = useState('')
-
     const [newForumreply, setNewForumreply] = useState({
         message: ""
     })
-
-
-    console.log(state)
 
     const convertText = (str) => {
         const myHTML = str;
@@ -47,35 +33,18 @@ export default function ForumReply(props) {
     }
 
     const convertToDate = (ms) => {
-        const dateObj = new Date(ms)
-        console.log(dateObj)
-        console.log(dateObj.getHours())
-  
-      let hour
-  
-      if (dateObj.getHours() === 0) {
-          hour = 12;
-      }
-      else if (dateObj.getHours() >= 12) {
-          hour = dateObj.getHours() - 12
-      }
-      else {
-          hour = dateObj.getHours() + 1
-      }
-      console.log(hour)
-  
-      // let minutes
-  
-  
-      // if (dateObj.getMinutes() === 0) {
-      //     hour = 12;
-      // }
-      // else if (dateObj.Minutes() >= 12) {
-      //     hour = dateObj.Minutes() - 11
-      // }
-      // else {
-      //     hour = dateObj.Minutes() + 1
-      // }
+        const dateObj = new Date(ms)  
+        let hour
+    
+        if (dateObj.getHours() === 0) {
+            hour = 12;
+        }
+        else if (dateObj.getHours() >= 12) {
+            hour = dateObj.getHours() - 12
+        }
+        else {
+            hour = dateObj.getHours()
+        }
   
         return `${dateObj.getMonth()+1}-${dateObj.getDate()}-${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
     }
@@ -90,46 +59,18 @@ export default function ForumReply(props) {
     }
 
     const editReply = async () => {
-        console.log('moo')
-        console.log(newForumreply)
         await props.editReply(props.reply_id, newForumreply.message)
         await props.getReplies()
         toggleEditReply()
     }
 
-    // const saveReply = async () => {
-    //     await saveForumreply(value, forumId)
-    //     await getReplies()
-    //     setValue('')
-    // }
-
     const Editor = () => {
-        console.log(props.message)
-        // console.log(convertFromHTML(props.message).contentBlocks)
-        // console.log(convertFromHTML(props.message).contentBlocks[0])
-        // console.log(convertFromHTML(props.message).contentBlocks[0]._map)
-
-        // console.log(convertFromHTML(props.message)[0])
-
-        console.log(JSON.stringify(convertFromHTML(props.message)))
-        // console.log(convertToRaw(props.message))
-        // console.log(convertFromRaw(props.message))
         const handleChangeReply = event => {
-            console.log(event.getCurrentContent())
             const plainText = event.getCurrentContent().getPlainText() // for plain text
             const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
-            // setValue(JSON.stringify(rteContent)) // store your rteContent to state
-            console.log(event.getCurrentContent())
-            console.log(rteContent)
-            console.log(plainText)
-            // console.log(plainText)
             setValue(draftToHtml(rteContent))
-            // setValue(rteContent)
-            // setValue(plainText)
             setNewForumreply({...newForumreply, message: draftToHtml(rteContent)})
-            console.log(newForumreply)
         }
-
 
         return (
             <>
@@ -154,17 +95,12 @@ return (
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     <b>{props.firstname} {props.lastname}</b>
                     </Typography>
-                    {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Image
-                    </Typography> */}
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     {convertToDate(props.posted)}
                     </Typography>
                 </div>
                 <div className="reply-bottom-right">
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom dangerouslySetInnerHTML={{ __html: convertText(props.message) }}>
-                    {/* {props.message} */}
-                    {/* <div dangerouslySetInnerHTML={{ __html: convertText(props.message) }}/> */}
 
                     </Typography>
                     {state.user_id === props.user_id && !editOn ? <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -177,22 +113,7 @@ return (
                         editOn ? Editor() : null
                     }
                 </div>
-                {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Word of the Day
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-                </Typography>
-                <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-                </Typography> */}
             </div>
-        {/* </CardContent> */}
-        {/* <CardActions>
-            <Button size="small">Learn More</Button>
-        </CardActions> */}
     </Card>
 );
 }

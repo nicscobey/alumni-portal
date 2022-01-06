@@ -425,7 +425,7 @@ export default function ForumTable() {
       return (
 <Box sx={{ width: 'calc(100% - 40px)', margin: "20px", }}>
       <Paper sx={{ width: '100%', mb: 2, border: "none", boxShadow: "none"  }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -521,7 +521,7 @@ export default function ForumTable() {
   return (
     <>
               {/* <button onClick={retrieveData}>Test</button> */}
-      {data ? returnTable() : <LoadingIcon /> }
+      {data ? returnTable() : <><br /><LoadingIcon /></> }
     </>
   );
 }

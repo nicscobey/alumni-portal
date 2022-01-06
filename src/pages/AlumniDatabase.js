@@ -1,20 +1,13 @@
-import Card from "../components/Card";
-import AlumniSearchResults from "../components/AlumniSearchResults";
 import {useState} from 'react'
-import Alumni from '../SampleAlumni'
 import AlumnusCard from "../components/AlumnusCard";
-import AlumniPagination from "../components/AlumniPagination";
+// import AlumniPagination from "../components/AlumniPagination";
 import DesktopNav from "../components/DesktopNav";
 import { TextField} from "@mui/material";
 import { useAppState } from "../AppState";
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import LoadingIcon from '../components/LoadingIcon'
-
-
 
 const AlumniDatabase = () => {
     const [search, setSearch] = useState({
@@ -25,14 +18,10 @@ const AlumniDatabase = () => {
         location: ""
     })
 
-    // const [results, setResults] = useState(Alumni);
     const [results, setResults] = useState(null)
-    const [page, setPage] = useState(1)
-
 
     const {state, dispatch} = useAppState()
     const {token, url } = state;
-
 
     const getAlumni = async (newSearch) => {
         const response = await fetch(state.url + "/users", {
@@ -41,84 +30,29 @@ const AlumniDatabase = () => {
                 Authorization: "bearer " + token,
             }
         })
-        console.log(response)
-        const data = await response.json()
-        console.log(data)
-        
+        const data = await response.json()        
 
         return data.filter(alumnus => {
-
-            
-            // let takenCourse = false;
-            // alumnus.gaprograms.forEach(course => {
-            //     if (course.includes(newSearch.gaProgram)) {
-            //         takenCourse = true;
-            //     }
-            // })
-            console.log(alumnus)
-            console.log(alumnus.program)
-            console.log(newSearch.gaProgram)
-            // console.log(alumnus.firstname.toLowerCase())
-            // console.log(newSearch.firstName.toLowerCase())
-            // console.log(alumnus.firstname.toLowerCase().includes(newSearch.firstName.toLowerCase()))
-
             return (
                 alumnus.firstname.toLowerCase().includes(newSearch.firstName.toLowerCase()) &&
                 alumnus.lastname.toLowerCase().includes(newSearch.lastName.toLowerCase()) && 
-                // takenCourse
                 alumnus.program.includes(newSearch.gaProgram)
-                // alumnus.jobTitle?.toLowerCase().includes(newSearch.jobTitle.toLowerCase()) &&
-                // alumnus.location?.toLowerCase().includes(newSearch.location.toLowerCase())
             )
         })
     }
 
     const handleChange = async (event) => {
         const newSearch = {...search, [event.target.name]: event.target.value};
-        console.log(event.target.name)
-        console.log(event.target.value)
-        // const newResults = Alumni.filter(alumnus => {
-
-            
-        //     let takenCourse = false;
-        //     alumnus.gaProgram.forEach(course => {
-        //         if (course.includes(newSearch.gaProgram)) {
-        //             takenCourse = true;
-        //         }
-        //     })
-
-        //     return (
-        //         alumnus.firstName.toLowerCase().includes(newSearch.firstName.toLowerCase()) &&
-        //         alumnus.lastName.toLowerCase().includes(newSearch.lastName.toLowerCase()) &&
-        //         alumnus.jobTitle.toLowerCase().includes(newSearch.jobTitle.toLowerCase()) &&
-        //         alumnus.location.toLowerCase().includes(newSearch.location.toLowerCase())
-        //     )
-        // })
-        // setResults(newResults);
-        // setSearch(newSearch);
         const alumni = await getAlumni(newSearch)
-        console.log(alumni)
-        console.log(search)
         await setResults(alumni)
         setSearch(newSearch)
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     alert('submitted!')
-    // }
-
-    const loadingResults = () => {
-        return <h3>Loading...</h3>
-    }
-
     const loadedResults = () => {
-        console.log(results)
         if (results.length>0){
             return (
                 results.map((result) => (
                     <div>
-                        {/* <h1>{result.firstName} {result.lastName}</h1> */}
                         <AlumnusCard path={result.id} bgcolor="#F6F6F6" person={result}/>
                     </div>
 
@@ -130,12 +64,6 @@ const AlumniDatabase = () => {
         }
     }
 
-    // const [program, setProgram] = useState('');
-
-    // const handleChangeProgram = (event) => {
-    //     setProgram(event.target.value);
-    // };
-
     return (
         <div className="">
             <DesktopNav />
@@ -144,7 +72,6 @@ const AlumniDatabase = () => {
             <form>
                 <TextField label="First Name" type="text" name="firstName" value={search.firstName} onChange={handleChange}  />
                 <TextField label="Last Name" type="text" name="lastName" value={search.lastName} onChange={handleChange} />
-                {/* CONSIDER ADDING THE MUI SELECT HERE INSTEAD */}
                 <FormControl sx={{width: 250, textAlign: "left"}}>
                     <InputLabel id="demo-simple-select-label">Select a Program</InputLabel>
                     <Select
@@ -163,24 +90,10 @@ const AlumniDatabase = () => {
                         <MenuItem value={"User Experience Design"}>User Experience Design</MenuItem>
                     </Select>
                 </FormControl>
-                {/* <select name="gaProgram" onChange={handleChange}>
-                    <option value="">Select a GA Program</option>
-                    <option value="Data Analytics">Data Analytics</option>
-                    <option value="Data Science">Data Science</option>
-                    <option value="Digital Marketing">Digital Marketing</option>
-                    <option value="Product Management">Product Management</option>
-                    <option value="Software Engineering">Software Engineering</option>
-                    <option value="User Experience Design">User Experience Design</option>
-                </select> */}
-                {/* <TextField type="text" name="jobTitle" value={search.jobTitle} onChange={handleChange} placeholder="Job Title"/>
-                <TextField type="text" name="lastname" value={search.location} onChange={handleChange} placeholder="Location" /> */}
-                {/* <input type="submit" className="button" value="Search" /> */}
             </form>
-            {/* <AlumniSearchResults /> */}
             <div className="alumni-search-results">
                 {results ? loadedResults() : null }
             </div>
-            {/* <AlumniPagination results={results} setPage={setPage}/> */}
         </div>
     )
 }

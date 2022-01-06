@@ -17,41 +17,18 @@ const Profile = () => {
 
     const [bio, setBio] = useState('')
     let myProfile = null
-
     const updateBio = (event) => {
         setBio(event.target.value)
-        console.log(event)
-        console.log(event.target.value)
-        console.log(bio)
     }
 
-    console.log(state)
-    // console.log(state.user_id)
-
-    // const checkForBio = async () => {
-    //     const response = await fetch(url + "/users/" + user_id, {
-    //         method: "get",
-    //         headers: {
-    //             Authorization: "bearer " + token
-    //         }
-    //     })
-    //     const user = 
-
-    // }
-
     const getProfile = async () => {
-        // const newProfile = Alumni.find(alumnus => alumnus.id===targetId);
-        console.log(state)
-        console.log(state.token)
         const alumni = await (await fetch(state.url + "/users", {
             method: "get",
             headers: {
                 Authorization: "bearer " + state.token,
             }
         })).json()
-        console.log(alumni)
         myProfile = await alumni.find(alumnus => alumnus.id === state.user_id)
-        console.log(myProfile);
         if (myProfile.bio == null) {
             console.log('please update your bio!')
             setOpen(true)
@@ -60,29 +37,25 @@ const Profile = () => {
 
     useEffect(() => {getProfile()}, [])
 
-    // const redirect = () => {
-    //     history.push(`/my/alumni/${state.user_id}`)
+    // const addBio = () => {
+    //     return (
+    //         <>
+    //             <TextField label="Brief Bio" onChange={updateBio} value={bio} sx={{width: 400, marginBottom: 3}}></TextField>
+    //         </>
+    //     )
     // }
 
-    const addBio = () => {
-        return (
-            <>
-                <TextField label="Brief Bio" onChange={updateBio} value={bio} sx={{width: 400, marginBottom: 3}}></TextField>
-            </>
-        )
-    }
-
-    const saveBio = async () => {
-        const response = await fetch(state.url + "/users/" + state.user_id, {
-            method: "put",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "bearer " + state.token
-            },
-            body: JSON.stringify({bio: bio})
-        })
-        console.log(response)
-    }
+    // const saveBio = async () => {
+    //     const response = await fetch(state.url + "/users/" + state.user_id, {
+    //         method: "put",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: "bearer " + state.token
+    //         },
+    //         body: JSON.stringify({bio: bio})
+    //     })
+    //     console.log(response)
+    // }
 
     return (
         <div className="">

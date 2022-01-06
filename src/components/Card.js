@@ -4,30 +4,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Card, CardContent, Typography } from '@mui/material';
 import $ from 'jquery'; 
 
-// export default function LinkCard() {
-//     return (
-//         <Card sx={{ maxWidth: 400 }}>
-//             <CardContent>
-//                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//                 Word of the Day
-//                 </Typography>
-//             </CardContent>
-//             <Link to={props.path}>
-//                  <CardLink>
-//                  <div className="card-left">
-//                      <div className="bold">{props.title}</div>
-//                      <div>Last updated: {props.lastUpdated}</div>
-//                      <div>{props.description}</div>
-//                  </div>
-//                  <div className="card-right">
-//                      < ArrowForwardIosIcon />
-//                  </div>
-//                  </CardLink>
-//              </Link>
-//         </Card>
-//     );
-// }
-
 const StyledCard = styled.section`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 3px;
@@ -51,8 +27,6 @@ const CardLink = styled.section`
     height: 100%;
     text-decoration: none;
 `
-
-
 
 const GACard = (props) => {
 

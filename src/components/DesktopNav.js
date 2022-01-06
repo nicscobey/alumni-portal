@@ -35,8 +35,6 @@ export default function DesktopNav() {
                 {/* APPNAME */}
                 <img src="https://ga-core.s3.amazonaws.com/production/uploads/program/default_image/9142/thumb_CMYK-Red_Small_GeneralAssembly-Cog.png" width="60px" alt="GA Logo" />
 
-              {/* </Typography> */}
-
               {state.token ? <>
                 <div>
                   <Link to="/my/home">

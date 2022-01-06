@@ -15,15 +15,12 @@ const style = {
   width: 400,
   bgcolor: 'background.paper',
   borderRadius: "3px",
-//   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
 export default function ForumCloseModal(props) {
-//   const [open, setOpen] = useState(false);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
+
 
   const history = useHistory()
 
