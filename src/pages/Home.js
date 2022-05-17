@@ -60,12 +60,12 @@ const Profile = () => {
     return (
         <div className="">
             <DesktopNav />
-            <h2>Career Center</h2>
-                <GACard bgcolor="#F6F6F6" title="Application Tracker" description="Job searching is hard. Use this tool to help you stay organized on moving forward in your job search!" path="/my/apptracker"/>
-                <GACard bgcolor="#F6F6F6" title="Alumni Job Board" lastUpdated="DATE"  path="/my/job-board" description="Looking for work? Trying to hire top talent? Post and apply for amazing jobs in tech on our exclusive job board!"/>
             <h2>Alumni & Community</h2>
                 <GACard bgcolor="#F6F6F6" title="Alumni Database" description="Search for and contact fellow graduates using our alumni database."  path="/my/alumni"/>
                 <GACard bgcolor="#F6F6F6" title="Community Forum" lastUpdated="DATE" description="Chat with other members of the GA community by posting and replying to messages on our forum." path="/my/forum"/>
+            <h2>Career Center</h2>
+                <GACard bgcolor="#F6F6F6" title="Application Tracker" description="Job searching is hard. Use this tool to help you stay organized on moving forward in your job search!" path="/my/apptracker"/>
+                <GACard bgcolor="#F6F6F6" title="Alumni Job Board" lastUpdated="DATE"  path="/my/job-board" description="Looking for work? Trying to hire top talent? Post and apply for amazing jobs in tech on our exclusive job board!"/>
             {/* {open ? <ForumCloseModal open={open} handleOpen={handleOpen} handleClose={handleClose} action={saveBio} message={"It looks like your profile is incomplete. Please enter a bio below."} buttonA={"Cancel"} buttonB={"Save"} addBio={addBio} /> : null} */}
         </div>
     )

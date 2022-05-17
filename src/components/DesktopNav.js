@@ -41,17 +41,17 @@ export default function DesktopNav() {
                     <Button color="inherit">Home</Button>
                   </Link>
                 </div>
-                <BasicMenu label="Career Center" items={[
-                  {label: "Application Tracker",
-                  link: "/my/apptracker"},
-                  {label: "Job Board",
-                  link: "/my/job-board"},
-                ]}/>
                 <BasicMenu label="Alumni & Community" items={[
                   {label: "Alumni Database",
                   link: "/my/alumni"},
                   {label: "Community Forum",
                   link: "/my/forum"},
+                ]}/>
+                <BasicMenu label="Career Center" items={[
+                  {label: "Application Tracker",
+                  link: "/my/apptracker"},
+                  {label: "Job Board",
+                  link: "/my/job-board"},
                 ]}/>
               </> : null}
 
